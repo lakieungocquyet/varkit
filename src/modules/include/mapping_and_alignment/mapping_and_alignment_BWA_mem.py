@@ -1,6 +1,6 @@
 import subprocess
 
-def mapping_and_alignment_BWA_mem(SAMPLE_ID, PLATFORM, FORWARD, REVERSE, REFERENCE, OUTDIR, SAMPLE_OUTDIR, SAM_FILE):
+def mapping_and_alignment_BWA_mem(FORWARD, REVERSE, SAMPLE_ID, PLATFORM, REFERENCE, SAMPLE_OUTDIR, OUTDIR, SAM_FILE):
 
     command = f"""
         /usr/bin/time -v -a -o {OUTDIR}/runtime.log \
