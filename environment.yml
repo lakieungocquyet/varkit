@@ -12,7 +12,9 @@ dependencies:
 - snpeff=5.2  
 - snpsift=5.2 
 - seqtk=1.5
+- ensembl-vep
 - pip:
   - pyyaml
   - pandas
   - seaborn
+  - cyvcf2
