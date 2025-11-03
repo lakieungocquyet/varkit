@@ -1,5 +1,4 @@
 #Please don't use tab characters for indentation in this file. Use spaces only.
-
 sample:
   - id: NF2_01
     read1: /home/lknq/WES_samples/NF2_01/NF2_01_1.trim.fastq.gz
