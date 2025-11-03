@@ -12,7 +12,7 @@ def baserecalibrator(MARKED_BAM_FILE, KNOWN_SITES, REFERENCE, SAMPLE_OUTDIR, OUT
     """
     subprocess.run(command, shell=True, check=True)
 
-def applyBQSR ( MARKED_BAM_FILE, REFERENCE, SAMPLE_OUTDIR, OUTDIR, RECAL_BAM_FILE):
+def applyBQSR (MARKED_BAM_FILE, REFERENCE, SAMPLE_OUTDIR, OUTDIR, RECAL_BAM_FILE):
     command = f"""
         /usr/bin/time -v -a -o {OUTDIR}/runtime.log \
             gatk ApplyBQSR \
