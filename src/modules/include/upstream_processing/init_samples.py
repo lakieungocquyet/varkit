@@ -57,8 +57,8 @@ def init_samples(SAMPLES, GENOME, KNOWN_SITES, OUTDIR):
         "cohort_gvcf_file": "cohort.g.vcf",
         "filtered_gvcf_file": f"cohort.filtered.g.vcf",
         "normalized_gvcf_file":f"cohort.normalized.g.vcf",
-        "annotated_gvcf_file": f"cohort.annotated.g.vcf",
-        "final_gvcf_file": f"cohort.final.g.vcf",
+        "snpEff_and_snpSift_annotated_gvcf_file": f"cohort.snpEff_and_snpSift.annotated.g.vcf",
+        "cohort_final_gvcf_file": f"cohort.final.g.vcf",
     }
     REFERENCE_LIST = {
         "genome": GENOME,
