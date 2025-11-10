@@ -48,16 +48,6 @@ OTHERS =    ["Gene_old_names","Gene_full_name","Pathway(Uniprot)","Pathway(BioCa
                 "Gene_damage_prediction(cancer_dominant_disease-causing_genes)"
             ]
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s",
-    datefmt="%Y-%m-%d %H:%M:%S",
-    handlers=[
-        logging.FileHandler(f"{OUTDIR}/runtime.log", mode="a", encoding="utf-8"),
-        logging.StreamHandler(sys.stdout)
-    ]
-)
-
 def export_to_XLSX(FINAL_VCF_FILE, SAMPLE_OUTDIR, XLSX_FILE):
     VCF_FILE = VCF(f"{SAMPLE_OUTDIR}/{FINAL_VCF_FILE}")
     data = []
