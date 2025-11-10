@@ -55,9 +55,10 @@ def init_samples(SAMPLES, GENOME, KNOWN_SITES, OUTDIR):
     GLOBAL_GVCF_LIST = {
         "combined_gvcf_file": "combined.g.vcf",
         "cohort_gvcf_file": "cohort.g.vcf",
-        "filtered_gvcf_file": f"variant.filtered.g.vcf",
-        "annotated_gvcf_file": f"variant.annotated.g.vcf",
-        "final_gvcf_file": f"variant.final.g.vcf",
+        "filtered_gvcf_file": f"cohort.filtered.g.vcf",
+        "normalized_gvcf_file":f"cohort.normalized.g.vcf",
+        "annotated_gvcf_file": f"cohort.annotated.g.vcf",
+        "final_gvcf_file": f"cohort.final.g.vcf",
     }
     REFERENCE_LIST = {
         "genome": GENOME,
