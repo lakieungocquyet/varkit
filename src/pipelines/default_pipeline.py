@@ -17,28 +17,34 @@ def default_pipeline(INPUT_YAML):
         )
     
     setup_logger(outdir = OUTDIR)
-    # [STAGE1]: MAPPING AND ALIGNMENT
+    # [STAGE 1]: MAPPING AND ALIGNMENT
     mapping_and_alignment_flow(
         SAMPLE_LIST = SAMPLE_LIST, 
         REFERENCE_LIST = REFERENCE_LIST,
         OUTDIR = OUTDIR
         )
-    # [STAGE2]: POST MAPPING AND ALIGNMENT
+    # [STAGE 2]: POST MAPPING AND ALIGNMENT
     post_mapping_and_alignment_flow(
         SAMPLE_LIST = SAMPLE_LIST, 
         known_sites_string = known_sites_string, 
         OUTDIR = OUTDIR
         )
-    # [STAGE3]: VARIANT CALLING
+    # [STAGE 3]: VARIANT CALLING
     variant_calling_flow(
         SAMPLE_LIST = SAMPLE_LIST, 
         OUTDIR = OUTDIR
         )
-    # [STAGE4]: POST VARIANT CALLING
+    # [STAGE 4]: POST VARIANT CALLING
     post_variant_calling_flow(
         SAMPLE_LIST = SAMPLE_LIST, 
         REFERENCE_LIST = REFERENCE_LIST, 
-        OUTDIR = OUTDIR
+        OUTDIR = OUTDIR,
+        GLOBAL_GVCF_LIST = GLOBAL_GVCF_LIST
+        )
+    # [STAGE 5]: VARIANT ANNOTATION
+    variant_annotation_flow(
+        GLOBAL_GVCF_LIST = GLOBAL_GVCF_LIST, 
+        OUTDIR = OUTDIR, 
         )
 
     return 0
