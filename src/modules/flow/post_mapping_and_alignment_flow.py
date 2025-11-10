@@ -1,6 +1,6 @@
 from modules.header import *
 
-def post_mapping_and_alignment_flow(SAMPLE_LIST, known_sites_string, OUTDIR):
+def post_mapping_and_alignment_flow(SAMPLE_LIST, KNOWN_SITES_STRING, OUTDIR):
     for sample_id, info in SAMPLE_LIST.items():
         start_time = time.time()
         logging.info(f"Post-mapping and alignment sample: {sample_id}")
@@ -19,7 +19,7 @@ def post_mapping_and_alignment_flow(SAMPLE_LIST, known_sites_string, OUTDIR):
         baserecalibrator(
             MARKED_BAM_FILE=info["marked_bam_file"],
             SAMPLE_OUTDIR=info["sample_outdir"],
-            KNOWN_SITES=known_sites_string,
+            KNOWN_SITES=KNOWN_SITES_STRING,
             REFERENCE=REFERENCE_LIST["genome"],
             OUTDIR=OUTDIR
         )
