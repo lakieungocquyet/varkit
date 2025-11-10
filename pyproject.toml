@@ -24,4 +24,4 @@ Repository = "https://github.com/LaKieuNgocQuyet/variant_analysis_pipeline.git"
 Issues = "https://github.com/LaKieuNgocQuyet/variant_analysis_pipeline/issues"
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["modules*"]
+include = ["modules*", "pipelines*"]
