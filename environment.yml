@@ -1,4 +1,4 @@
-name: VariantCalling
+name: varcall
 channels: 
 - conda-forge
 - bioconda
