@@ -1,12 +1,12 @@
 import subprocess
 
-def genotype_gvcfs(COHORT_GVCF_FILE, REFERENCE, OUTDIR, COHORT_VCF_FILE):
+def genotype_gvcfs(COMBINED_GVCF_FILE, REFERENCE, OUTDIR, COHORT_GVCF_FILE):
     command = f"""
         /usr/bin/time -v -a -o {OUTDIR}/runtime.log \
             gatk GenotypeGVCFs \
                 -R {REFERENCE} \
-                -V {OUTDIR}/{COHORT_GVCF_FILE} \
-                -O {OUTDIR}/{COHORT_VCF_FILE} \
+                -V {OUTDIR}/{COMBINED_GVCF_FILE} \
+                -O {OUTDIR}/{COHORT_GVCF_FILE} \
                 -L /home/lknq/hg19/S07604624_Regions.bed \
                 -ip 100 \
                 --include-non-variant-sites false \
