@@ -1,6 +1,8 @@
+import time
 from modules.header import *
 
 def downstream_processing_flow(SAMPLE_LIST, GLOBAL_GVCF_LIST, REFERENCE_LIST, OUTDIR):
+    setup_logger(outdir = OUTDIR)
     for sample_id, info in SAMPLE_LIST.items():
         start_time = time.time()
         select_variant_by_sample(
