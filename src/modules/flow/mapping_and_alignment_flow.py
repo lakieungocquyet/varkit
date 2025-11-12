@@ -1,9 +1,11 @@
+import time
 from modules.header import *
 
 def mapping_and_alignment_flow(SAMPLE_LIST, REFERENCE_LIST, OUTDIR):
+    setup_logger(outdir = OUTDIR)
     for sample_id, info in SAMPLE_LIST.items():
         start_time = time.time()
-        logging.info(f"Mapping and alignment sample: {sample_id}")
+        logging_info(f"Mapping and alignment sample: {sample_id}")
         if info["read_length_type"] == "short":
             mapping_and_alignment_BWA_mem(
                 SAMPLE_ID=sample_id,
@@ -28,5 +30,5 @@ def mapping_and_alignment_flow(SAMPLE_LIST, REFERENCE_LIST, OUTDIR):
             )
         end_time = time.time()
         duration = (end_time - start_time) / 60  
-        logging.info(f"{sample_id} finished mapping and alignment in {duration:.2f} minutes")
-    logging.info("All samples finished mapping and alignment step.")
+        logging_info(f"{sample_id} finished mapping and alignment in {duration:.2f} minutes")
+    logging_info("All samples finished mapping and alignment step.")
