@@ -1,7 +1,7 @@
 from modules.header import *
 
 def post_variant_calling_flow(GVCF_FILE_STRING, REFERENCE_LIST, OUTDIR, GLOBAL_GVCF_LIST):
-
+    setup_logger(outdir = OUTDIR)
     combine_gvcfs(
         GVCF_FILE_STRING = GVCF_FILE_STRING,
         REFERENCE = REFERENCE_LIST["genome"],
