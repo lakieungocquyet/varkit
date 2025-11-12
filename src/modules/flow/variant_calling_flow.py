@@ -1,9 +1,11 @@
+import time
 from modules.header import *
 
-def variant_calling_flow(SAMPLE_LIST, OUTDIR):
+def variant_calling_flow(SAMPLE_LIST, REFERENCE, OUTDIR):
+    setup_logger(outdir = OUTDIR)
     for sample_id, info in SAMPLE_LIST.items():
         start_time = time.time()
-        logging.info(f"Variant calling sample: {sample_id}")
+        logging_info(f"Variant calling sample: {sample_id}")
         genomic_SNPs_and_Indels_calling_GATK(
             RECAL_BAM_FILE=info["recal_bam_file"],
             REFERENCE=REFERENCE_LIST["genome"],
@@ -13,4 +15,4 @@ def variant_calling_flow(SAMPLE_LIST, OUTDIR):
         )
         end_time = time.time()
         duration = (end_time - start_time) / 60  
-        logging.info(f"{sample_id} finished variant calling in {duration:.2f} minutes")
+        logging_info(f"{sample_id} finished variant calling in {duration:.2f} minutes")
