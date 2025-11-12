@@ -1,7 +1,5 @@
 import os
-import logging
-import time
-import sys
+from modules.utils.setup_logger import setup_logger, logging_info
 from modules.include.upstream_processing.init_samples import *
 from modules.include.mapping_and_alignment.check_average_read_length import check_average_read_length
 from modules.include.mapping_and_alignment.mapping_and_alignment_BWA_mem import mapping_and_alignment_BWA_mem
@@ -28,13 +26,3 @@ from modules.flow.upstream_processing_flow  import upstream_processing_flow
 env = os.environ.copy()
 env["JAVA_OPTS"] = "-Xmx8g"
 
-def setup_logger(outdir: str):
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s - %(levelname)s - %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S",
-        handlers=[
-            logging.FileHandler(f"{outdir}/runtime.log", mode="a", encoding="utf-8"),
-            logging.StreamHandler(sys.stdout)
-        ]
-    )
