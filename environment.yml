@@ -13,6 +13,7 @@ dependencies:
 - snpsift=5.2 
 - seqtk=1.5
 - ensembl-vep
+- bcftools
 - pip:
   - pyyaml
   - pandas
