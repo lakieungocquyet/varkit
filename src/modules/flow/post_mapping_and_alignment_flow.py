@@ -12,9 +12,9 @@ def post_mapping_and_alignment_flow(workflow_config, known_sites_string):
 
         SAM_FILE = workflow_config["sample_outputs"][f"{sample_id}"]["sam_file"]
         SAMPLE_OUTDIR = workflow_config["sample_inputs"][f"{sample_id}"]["sample_outdir"]
-        SORTED_BAM_FILE = workflow_config["sample_inputs"][f"{sample_id}"]["sorted_bam_file"]
-        MARKED_BAM_FILE = workflow_config["sample_inputs"][f"{sample_id}"]["marked_bam_file"]
-        RECAL_BAM_FILE = workflow_config["sample_inputs"][f"{sample_id}"]["recal_bam_file"]
+        SORTED_BAM_FILE = workflow_config["sample_outputs"][f"{sample_id}"]["sorted_bam_file"]
+        MARKED_BAM_FILE = workflow_config["sample_outputs"][f"{sample_id}"]["marked_bam_file"]
+        RECAL_BAM_FILE = workflow_config["sample_outputs"][f"{sample_id}"]["recal_bam_file"]
         # start_time = time.time()
         # logging_info(f"Post-mapping and alignment sample: {sample_id}")
 
