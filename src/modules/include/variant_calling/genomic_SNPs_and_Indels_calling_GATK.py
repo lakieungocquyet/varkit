@@ -1,12 +1,12 @@
 import subprocess
 
-def genomic_SNPs_and_Indels_calling_GATK(RECAL_BAM_FILE, REFERENCE, SAMPLE_OUTDIR, OUTDIR, GVCF_FILE):
+def genomic_SNPs_and_Indels_calling_GATK(recal_bam_file, reference, sample_outdir, outdir, gvcf_file):
     command = f"""
-        /usr/bin/time -v -a -o {OUTDIR}/runtime.log \
+        /usr/bin/time -v -a -o {outdir}/runtime.log \
             gatk HaplotypeCaller \
-                -I {SAMPLE_OUTDIR}/{RECAL_BAM_FILE} \
-                -R {REFERENCE} \
-                -O {SAMPLE_OUTDIR}/{GVCF_FILE} \
+                -I {sample_outdir}/{recal_bam_file} \
+                -R {reference} \
+                -O {sample_outdir}/{gvcf_file} \
                 --native-pair-hmm-threads 8 \
                 -ERC GVCF \
                 -L /home/lknq/hg19/S07604624_Regions.bed \
@@ -48,6 +48,6 @@ def genomic_SNPs_and_Indels_calling_GATK(RECAL_BAM_FILE, REFERENCE, SAMPLE_OUTDI
                 --gvcf-gq-bands 70 --gvcf-gq-bands 80 --gvcf-gq-bands 90 --gvcf-gq-bands 99 \
                 --read-validation-stringency SILENT \
                 --verbosity INFO \
-        2>> {OUTDIR}/monitoring.log
+        2>> {outdir}/monitoring.log
     """
     subprocess.run(command, shell=True, check=True)
