@@ -1,14 +1,14 @@
 import subprocess
 
-def select_variant_by_sample(ANNOTATED_GVCF_FILE, SAMPLE_ID, REFERENCE, SAMPLE_OUTDIR, OUTDIR, FINAL_VCF_FILE):
+def select_variant_by_sample(cohort_snpEff_and_snpSift_annotated_gvcf_file, sample_id, reference, sample_outdir, outdir, vcf_file):
     command = f"""
-        /usr/bin/time -v -a -o {OUTDIR}/runtime.log \
+        /usr/bin/time -v -a -o {outdir}/runtime.log \
             gatk SelectVariants \
-                -V {OUTDIR}/temp_8.{ANNOTATED_GVCF_FILE} \
-                -R {REFERENCE} \
-                --sample-name {SAMPLE_ID} \
+                -V {outdir}/{cohort_snpEff_and_snpSift_annotated_gvcf_file} \
+                -R {reference} \
+                --sample-name {sample_id} \
                 --exclude-non-variants \
-                -O {SAMPLE_OUTDIR}/{FINAL_VCF_FILE} \
-        2>> {OUTDIR}/monitoring.log
+                -O {sample_outdir}/{vcf_file} \
+        2>> {outdir}/monitoring.log
         """
     subprocess.run(command, shell=True, check=True)
