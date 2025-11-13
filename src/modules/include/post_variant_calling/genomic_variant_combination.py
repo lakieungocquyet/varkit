@@ -1,12 +1,12 @@
 import subprocess
 
-def combine_gvcfs(GVCF_FILE_STRING, REFERENCE, OUTDIR, COHORT_GVCF_FILE):
+def combine_gvcfs(gvcf_file_string, reference, outdir, combination_gvcf_file):
     command = f"""
-        /usr/bin/time -v -a -o {OUTDIR}/runtime.log \
+        /usr/bin/time -v -a -o {outdir}/runtime.log \
             gatk CombineGVCFs \
-                -R {REFERENCE} \
-                {GVCF_FILE_STRING} \
-                -O {OUTDIR}/{COHORT_GVCF_FILE} \
-        2>> {OUTDIR}/monitoring.log
+                -R {reference} \
+                {gvcf_file_string} \
+                -O {outdir}/{combination_gvcf_file} \
+        2>> {outdir}/monitoring.log
     """
     subprocess.run(command, shell=True, check=True)
