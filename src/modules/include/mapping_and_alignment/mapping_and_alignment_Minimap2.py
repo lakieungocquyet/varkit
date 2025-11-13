@@ -1,14 +1,14 @@
 import subprocess
 
-def mapping_and_alignment_Minimap2(FORWARD, REVERSE, SAMPLE_ID, PLATFORM, REFERENCE, SAMPLE_OUTDIR, OUTDIR, SAM_FILE):
+def mapping_and_alignment_Minimap2(forward, reverse, sample_id, platform, reference, sample_outdir, outdir, sam_file):
     command = f"""
-        /usr/bin/time -v -o {OUTDIR}/runtime.log \
+        /usr/bin/time -v -o {outdir}/runtime.log \
             minimap2 -x -a \
-                {REFERENCE}.mmi \
-                -R "@RG\\tID:{SAMPLE_ID}\\tLB:lib1\\tPL:{PLATFORM}\\tPU:unit1\\tSM:{SAMPLE_ID}" \
-                {FORWARD} \
-                {REVERSE} \
-                > {SAMPLE_OUTDIR}/{SAM_FILE} \
-        2>> {OUTDIR}/monitoring.log
+                {reference}.mmi \
+                -R "@RG\\tID:{sample_id}\\tLB:lib1\\tPL:{platform}\\tPU:unit1\\tSM:{sample_id}" \
+                {forward} \
+                {reverse} \
+                > {sample_outdir}/{sam_file} \
+        2>> {outdir}/monitoring.log
     """
     subprocess.run(command, shell=True, check=True)
