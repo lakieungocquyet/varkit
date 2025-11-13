@@ -9,7 +9,7 @@ def variant_calling_flow(workflow_config):
     # setup_logger(outdir = OUTDIR)
     for sample_id, info in SAMPLE_INPUTS.items():
 
-        RECAL_BAM_FILE = workflow_config["sample_inputs"][f"{sample_id}"]["recal_bam_file"]
+        RECAL_BAM_FILE = workflow_config["sample_outputs"][f"{sample_id}"]["recal_bam_file"]
         SAMPLE_OUTDIR = workflow_config["sample_inputs"][f"{sample_id}"]["sample_outdir"]
         GVCF_FILE = workflow_config["sample_outputs"][f"{sample_id}"]["gvcf_file"]
         # start_time = time.time()
