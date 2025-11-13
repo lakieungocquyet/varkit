@@ -11,11 +11,11 @@ def mapping_and_alignment_flow(workflow_config):
     for sample_id, info in SAMPLE_INPUTS.items():
 
         SAMPLE_ID = sample_id
-        SAM_FILE = workflow_config["sample_outputs"][f"{sample_id}"]["sam_file"]
         PLATFORM = workflow_config["sample_inputs"][f"{sample_id}"]["platform"]
         READ_1 = workflow_config["sample_inputs"][f"{sample_id}"]["read_1"]
         READ_2 = workflow_config["sample_inputs"][f"{sample_id}"]["read_2"]
         SAMPLE_OUTDIR = workflow_config["sample_inputs"][f"{sample_id}"]["sample_outdir"]
+        SAM_FILE = workflow_config["sample_outputs"][f"{sample_id}"]["sam_file"]
 
         # start_time = time.time()
         # logging_info(f"Mapping and alignment sample: {sample_id}")
