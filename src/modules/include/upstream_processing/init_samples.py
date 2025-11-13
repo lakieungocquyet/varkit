@@ -2,11 +2,25 @@ import yaml
 import os
 import subprocess
 
-WORKFLOW_CONFIG = {}
-SAMPLE_METADATA = {}
+SAMPLES = None
+GENOME = None
+KNOWN_SITES = None
+OUTDIR = None
+ID = None
+R1 = None
+R2 = None
+FORWARD_AVERAGE_LENGTH = None
+REVERSE_AVERAGE_LENGTH = None
+AVERAGE_LENGTH = None
+READ_TYPE = None
+
+SAMPLE_INPUTS = {}
+REFERENCE_DICT = {}
 SAMPLE_OUTPUTS = {}
 COHORT_OUTPUTS = {}
-REFERENCE_DICT = {}
+REPORT_OUTPUTS = {}
+
+WORKFLOW_CONFIG = {}
 
 def check_average_read_length(fastq):
     command = f'seqtk seq -A "{fastq}" | awk \'{{if(NR%2==0){{sum+=length($0);n++}}}} END{{if(n>0) print sum/n; else print 0}}\''
@@ -30,45 +44,57 @@ def init_samples(SAMPLES, GENOME, KNOWN_SITES, OUTDIR):
         FORWARD_AVERAGE_LENGTH = check_average_read_length(R1)
         REVERSE_AVERAGE_LENGTH = check_average_read_length(R2)
         AVERAGE_LENGTH = (FORWARD_AVERAGE_LENGTH + REVERSE_AVERAGE_LENGTH) / 2   
-        if AVERAGE_LENGTH >= 250:
+        if AVERAGE_LENGTH >= 200:
             READ_TYPE = "long"
         else:
             READ_TYPE = "short"
         SAMPLE_OUTDIR = os.path.join(OUTDIR, ID)
         os.makedirs(SAMPLE_OUTDIR, exist_ok=True)
-        SAMPLE_METADATA[ID] = {
+        SAMPLE_INPUTS[ID] = {
             # INPUT INFO
-            "read1": R1,
-            "read2": R2,
+            "read_1": R1,
+            "read_2": R2,
             "sample_outdir": SAMPLE_OUTDIR, 
             "platform": "illumina",
+            "average_length": AVERAGE_LENGTH,
             "read_length_type": READ_TYPE,
-            "average_length": AVERAGE_LENGTH,}
+            }
         SAMPLE_OUTPUTS[ID] = {
             # MAPPING/ALIGNMENT INFO
             "sam_file": f"{ID}.sam",
-            "bam_file": f"{ID}.bam",
-            "sorted_bam_file": f"{ID}.temp_1.bam",
-            "sorted_marked_bam_file": f"{ID}.temp_2.bam",
-            "sorted_marked_recal_bam_file": f"{ID}.final.bam",
+            "sorted_bam_file": f"{ID}.sorted.bam",
+            "marked_bam_file": f"{ID}.marked.bam",
+            "recal_bam_file": f"{ID}.recal.bam",
+            "final_bam_file": f"{ID}.final.bam",
             # VARIANT INFO
             "gvcf_file": f"{ID}.g.vcf",
-            "final_vcf_file": f"{ID}.final.vcf",
+            "vcf_file": f"{ID}.vcf",
+            "final_vcf_file": f"{ID}.final.vcf",      
+        }
+        REPORT_OUTPUTS[ID] = {
+            # REPORT INFO
             "xlsx_file" : f"{ID}.xlsx"
         }
     COHORT_OUTPUTS = {
-        "combined_gvcf_file": "variant.combined.g.vcf",
+        "combination_gvcf_file": "combination.g.vcf",
         "cohort_gvcf_file": "cohort.g.vcf",
         "cohort_filtered_gvcf_file": f"cohort.filtered.g.vcf",
         "cohort_normalized_gvcf_file":f"cohort.normalized.g.vcf",
-        "cohort_snpEff_and_snpSift_annotated_gvcf_file": f"cohort.snpEff_and_snpSift.annotated.g.vcf",
+        "cohort_snpEff_and_snpSift_annotated_gvcf_file": f"cohort.snpEff_and_snpSift_annotated.g.vcf",
         "cohort_final_gvcf_file": f"cohort.final.g.vcf",
     }
-    REFERENCE_LIST = {
+    REFERENCE_DICT = {
         "genome": GENOME,
         "known_sites": KNOWN_SITES
     }
 
-    WORKFLOW_CONFIG = {SAMPLE_METADATA, SAMPLE_OUTPUTS, COHORT_OUTPUTS, REFERENCE_LIST}
+    WORKFLOW_CONFIG = {
+        "sample_inputs": SAMPLE_INPUTS, 
+        "reference_dict": REFERENCE_DICT, 
+        "sample_outputs": SAMPLE_OUTPUTS, 
+        "cohort_outputs": COHORT_OUTPUTS, 
+        "report_outputs": REPORT_OUTPUTS,
+        "outdir": OUTDIR 
+        }
 
     return WORKFLOW_CONFIG
