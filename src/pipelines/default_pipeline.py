@@ -1,44 +1,31 @@
 from modules.header import *
 
-def default_pipeline(OUTDIR, SAMPLE_LIST, REFERENCE_LIST, GLOBAL_GVCF_LIST, GVCF_FILE_STRING, KNOWN_SITES_STRING):
-    setup_logger(outdir = OUTDIR)
+def default_pipeline(workflow_config, gvcf_file_string, known_sites_string):
+    # setup_logger(outdir = OUTDIR)
     # [STAGE 1]: MAPPING AND ALIGNMENT
     mapping_and_alignment_flow(
-        SAMPLE_LIST = SAMPLE_LIST, 
-        REFERENCE_LIST = REFERENCE_LIST,
-        OUTDIR = OUTDIR
+        workflow_config = workflow_config
         )
     # [STAGE 2]: POST MAPPING AND ALIGNMENT
     post_mapping_and_alignment_flow(
-        SAMPLE_LIST = SAMPLE_LIST, 
-        REFERENCE_LIST= REFERENCE_LIST, 
-        KNOWN_SITES_STRING = KNOWN_SITES_STRING, 
-        OUTDIR = OUTDIR
+        workflow_config = workflow_config, 
+        known_sites_string = known_sites_string
         )
     # [STAGE 3]: VARIANT CALLING
     variant_calling_flow(
-        SAMPLE_LIST = SAMPLE_LIST, 
-        REFERENCE_LIST= REFERENCE_LIST, 
-        OUTDIR = OUTDIR
+        workflow_config = workflow_config
         )
     # [STAGE 4]: POST VARIANT CALLING
     post_variant_calling_flow(
-        GVCF_FILE_LIST = GVCF_FILE_STRING,
-        SAMPLE_LIST = SAMPLE_LIST, 
-        REFERENCE_LIST = REFERENCE_LIST, 
-        OUTDIR = OUTDIR,
-        GLOBAL_GVCF_LIST = GLOBAL_GVCF_LIST
+        workflow_config = workflow_config, 
+        gvcf_file_string = gvcf_file_string
         )
     # [STAGE 5]: VARIANT ANNOTATION
     variant_annotation_flow(
-        GLOBAL_GVCF_LIST = GLOBAL_GVCF_LIST, 
-        OUTDIR = OUTDIR, 
+        workflow_config = workflow_config
         )
     # [STAGE 6]: DOWNSTREAM PROCESSING
     downstream_processing_flow(
-        SAMPLE_LIST = SAMPLE_LIST, 
-        GLOBAL_GVCF_LIST = GLOBAL_GVCF_LIST, 
-        REFERENCE_LIST = REFERENCE_LIST, 
-        OUTDIR = OUTDIR
+        workflow_config = workflow_config
     )
     return 0
