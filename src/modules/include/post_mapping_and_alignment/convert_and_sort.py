@@ -1,9 +1,9 @@
 import subprocess
-def convert_and_sort(SAM_FILE, SAMPLE_OUTDIR, OUTDIR, SORTED_BAM_FILE):
+def convert_and_sort(sam_file, sample_outdir, outdir, sorted_bam_file):
     command = f"""
-        /usr/bin/time -v -a -o {OUTDIR}/runtime.log bash -c '\
-            samtools view -@ 8 -Sb {SAMPLE_OUTDIR}/{SAM_FILE} | \
-            samtools sort -@ 8 -o {SAMPLE_OUTDIR}/{SORTED_BAM_FILE}' \
-        2>> {OUTDIR}/monitoring.log
+        /usr/bin/time -v -a -o {outdir}/runtime.log bash -c '\
+            samtools view -@ 8 -Sb {sample_outdir}/{sam_file} | \
+            samtools sort -@ 8 -o {sample_outdir}/{sorted_bam_file}' \
+        2>> {outdir}/monitoring.log
     """
     subprocess.run(command, shell=True, check=True)
