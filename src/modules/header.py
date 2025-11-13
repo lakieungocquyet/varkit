@@ -1,7 +1,5 @@
-import os
-from modules.utils.setup_logger import setup_logger, logging_info
+# from modules.utils.setup_logger import setup_logger, logging_info
 from modules.include.upstream_processing.init_samples import *
-from modules.include.mapping_and_alignment.check_average_read_length import check_average_read_length
 from modules.include.mapping_and_alignment.mapping_and_alignment_BWA_mem import mapping_and_alignment_BWA_mem
 from modules.include.mapping_and_alignment.mapping_and_alignment_Minimap2 import mapping_and_alignment_Minimap2
 from modules.include.post_mapping_and_alignment.convert_and_sort import convert_and_sort
@@ -14,7 +12,8 @@ from modules.include.post_variant_calling.variant_normalization import variant_n
 from modules.include.post_variant_calling.variant_filtration import hard_filtration
 from modules.include.annotaion.SnpEff_and_SnpSift_annotation import snpEff_and_snpSift_annotation
 from modules.include.downstream_processing.variant_selection import select_variant_by_sample
-from modules.include.downstream_processing.export_to_XLSX import export_to_XLSX
+from modules.include.downstream_processing.sanitization_vcf_file import sanitization_vcf_file
+from modules.include.reporting.export_to_XLSX import export_to_XLSX
 from modules.flow.mapping_and_alignment_flow import mapping_and_alignment_flow
 from modules.flow.post_mapping_and_alignment_flow import post_mapping_and_alignment_flow
 from modules.flow.variant_calling_flow import variant_calling_flow
@@ -22,7 +21,5 @@ from modules.flow.post_variant_calling_flow import post_variant_calling_flow
 from modules.flow.variant_annotation_flow import variant_annotation_flow
 from modules.flow.downstream_processing_flow import downstream_processing_flow
 from modules.flow.upstream_processing_flow  import upstream_processing_flow
-# Set Java options for memory management
-env = os.environ.copy()
-env["JAVA_OPTS"] = "-Xmx8g"
+
 
