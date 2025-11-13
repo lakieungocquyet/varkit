@@ -1,12 +1,12 @@
 import subprocess
 
-def genotype_gvcfs(COMBINED_GVCF_FILE, REFERENCE, OUTDIR, COHORT_GVCF_FILE):
+def genotype_gvcfs(combination_gvcf_file, reference, outdir, cohort_gvcf_file):
     command = f"""
-        /usr/bin/time -v -a -o {OUTDIR}/runtime.log \
+        /usr/bin/time -v -a -o {outdir}/runtime.log \
             gatk GenotypeGVCFs \
-                -R {REFERENCE} \
-                -V {OUTDIR}/{COMBINED_GVCF_FILE} \
-                -O {OUTDIR}/{COHORT_GVCF_FILE} \
+                -R {reference} \
+                -V {outdir}/{combination_gvcf_file} \
+                -O {outdir}/{cohort_gvcf_file} \
                 -L /home/lknq/hg19/S07604624_Regions.bed \
                 -ip 100 \
                 --include-non-variant-sites false \
@@ -26,6 +26,6 @@ def genotype_gvcfs(COMBINED_GVCF_FILE, REFERENCE, OUTDIR, COHORT_GVCF_FILE):
                 --interval-merging-rule ALL \
                 --read-validation-stringency SILENT \
                 --verbosity INFO \
-        2>> {OUTDIR}/monitoring.log
+        2>> {outdir}/monitoring.log
     """
     subprocess.run(command, shell=True, check=True)
