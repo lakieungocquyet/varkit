@@ -1,22 +1,40 @@
 import time
 from modules.header import *
 
-def downstream_processing_flow(SAMPLE_LIST, GLOBAL_GVCF_LIST, REFERENCE_LIST, OUTDIR):
+def downstream_processing_flow(workflow_config):
+
+    OUTDIR = workflow_config["outdir"]
+    REFERENCE = workflow_config["reference_dict"]["genome"]
+    SAMPLE_INPUTS = workflow_config["sample_inputs"]
+    COHORT_SNPEFF_AND_SNPSIFT_ANNOTATED_GVCF_FILE = workflow_config["cohort_outputs"]["cohort_snpEff_and_snpSift_annotated_gvcf_file"]
+    
     setup_logger(outdir = OUTDIR)
-    for sample_id, info in SAMPLE_LIST.items():
-        start_time = time.time()
+    for sample_id, info in SAMPLE_INPUTS.items():
+
+        SAMPLE_ID = sample_id
+        SAMPLE_OUTDIR = workflow_config["sample_inputs"][f"{sample_id}"]["sample_outdir"]
+        VCF_FILE = workflow_config["sample_outputs"][f"{sample_id}"]["vcf_file"]
+        FINAL_VCF_FILE = workflow_config["sample_outputs"][f"{sample_id}"]["final_vcf_file"]
+        XLSX_FILE = workflow_config["report_outputs"][f"{sample_id}"]["xlsx_file"]
+
         select_variant_by_sample(
-            ANNOTATED_GVCF_FILE = GLOBAL_GVCF_LIST["cohort_final_gvcf_file"], 
-            SAMPLE_ID = sample_id, 
-            REFERENCE = REFERENCE_LIST["genome"], 
-            SAMPLE_OUTDIR = info["sample_outdir"], 
-            OUTDIR = OUTDIR, 
-            FINAL_VCF_FILE = info["final_vcf_file"]
+            cohort_snpEff_and_snpSift_annotated_gvcf_file = COHORT_SNPEFF_AND_SNPSIFT_ANNOTATED_GVCF_FILE, 
+            sample_id = SAMPLE_ID, 
+            reference = REFERENCE, 
+            sample_outdir = SAMPLE_OUTDIR, 
+            outdir = OUTDIR, 
+            vcf_file = VCF_FILE
+            )
+        sanitization_vcf_file(
+            vcf_file = VCF_FILE, 
+            sample_outdir = SAMPLE_OUTDIR, 
+            outdir = OUTDIR, 
+            final_vcf_file = FINAL_VCF_FILE
             )
         export_to_XLSX(
-            FINAL_VCF_FILE = info["final_vcf_file"], 
-            SAMPLE_OUTDIR = info["sample_outdir"], 
-            XLSX_FILE = info["xlsx_file"]
+            final_vcf_file = FINAL_VCF_FILE, 
+            sample_outdir = SAMPLE_OUTDIR, 
+            xlsx_file = XLSX_FILE
             )
         
     
