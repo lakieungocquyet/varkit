@@ -1,38 +1,50 @@
 import time
 from modules.header import *
 
-def post_mapping_and_alignment_flow(SAMPLE_LIST, REFERENCE_LIST, KNOWN_SITES_STRING, OUTDIR):
-    setup_logger(outdir = OUTDIR)
-    for sample_id, info in SAMPLE_LIST.items():
-        start_time = time.time()
-        logging_info(f"Post-mapping and alignment sample: {sample_id}")
+def post_mapping_and_alignment_flow(workflow_config, known_sites_string):
+
+    OUTDIR = workflow_config["outdir"]
+    REFERENCE = workflow_config["reference_dict"]["genome"]
+    SAMPLE_INPUTS = workflow_config["sample_inputs"]
+    # setup_logger(outdir = OUTDIR)
+
+    for sample_id, info in SAMPLE_INPUTS.items():
+
+        SAM_FILE = workflow_config["sample_outputs"][f"{sample_id}"]["sam_file"]
+        SAMPLE_OUTDIR = workflow_config["sample_inputs"][f"{sample_id}"]["sample_outdir"]
+        SORTED_BAM_FILE = workflow_config["sample_inputs"][f"{sample_id}"]["sorted_bam_file"]
+        MARKED_BAM_FILE = workflow_config["sample_inputs"][f"{sample_id}"]["marked_bam_file"]
+        RECAL_BAM_FILE = workflow_config["sample_inputs"][f"{sample_id}"]["recal_bam_file"]
+        # start_time = time.time()
+        # logging_info(f"Post-mapping and alignment sample: {sample_id}")
+
         convert_and_sort(
-            SAMPLE_OUTDIR=info["sample_outdir"],
-            SAM_FILE=info["sam_file"],
-            SORTED_BAM_FILE=info["sorted_bam_file"],
-            OUTDIR=OUTDIR
+            sample_outdir=SAMPLE_OUTDIR,
+            sam_file=SAM_FILE,
+            sorted_bam_file=SORTED_BAM_FILE,
+            outdir=OUTDIR
         )
         markduplicates(
-            SORTED_BAM_FILE=info["sorted_bam_file"],
-            SAMPLE_OUTDIR=info["sample_outdir"],
-            OUTDIR=OUTDIR,
-            MARKED_BAM_FILE=info["sorted_marked_bam_file"],
+            sorted_bam_file=SORTED_BAM_FILE,
+            sample_outdir=SAMPLE_OUTDIR,
+            outdir=OUTDIR,
+            marked_bam_file=MARKED_BAM_FILE,
         )
         baserecalibrator(
-            MARKED_BAM_FILE=info["sorted_marked_bam_file"],
-            SAMPLE_OUTDIR=info["sample_outdir"],
-            KNOWN_SITES=KNOWN_SITES_STRING,
-            REFERENCE=REFERENCE_LIST["genome"],
-            OUTDIR=OUTDIR
+            marked_bam_file=MARKED_BAM_FILE,
+            sample_outdir=SAMPLE_OUTDIR,
+            known_sites_string=known_sites_string,
+            reference=REFERENCE,
+            outdir=OUTDIR
         )
         applyBQSR(
-            MARKED_BAM_FILE=info["sorted_marked_bam_file"],
-            REFERENCE=REFERENCE_LIST["genome"],
-            SAMPLE_OUTDIR=info["sample_outdir"],
-            OUTDIR=OUTDIR,
-            RECAL_BAM_FILE=info["sorted_marked_recal_bam_file"],
+            marked_bam_file=MARKED_BAM_FILE,
+            reference=REFERENCE,
+            sample_outdir=SAMPLE_OUTDIR,
+            outdir=OUTDIR,
+            recal_bam_file=RECAL_BAM_FILE,
         )  
-        end_time = time.time()
-        duration = (end_time - start_time) / 60  
-        logging_info(f"{sample_id} finished post-mapping and alignment in {duration:.2f} minutes")
-    logging_info("All samples finished post-mapping and alignment step.")    
+    #     end_time = time.time()
+    #     duration = (end_time - start_time) / 60  
+    #     logging_info(f"{sample_id} finished post-mapping and alignment in {duration:.2f} minutes")
+    # logging_info("All samples finished post-mapping and alignment step.")    
