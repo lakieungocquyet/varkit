@@ -8,7 +8,7 @@ def downstream_processing_flow(workflow_config):
     SAMPLE_INPUTS = workflow_config["sample_inputs"]
     COHORT_SNPEFF_AND_SNPSIFT_ANNOTATED_GVCF_FILE = workflow_config["cohort_outputs"]["cohort_snpEff_and_snpSift_annotated_gvcf_file"]
     
-    setup_logger(outdir = OUTDIR)
+    # setup_logger(outdir = OUTDIR)
     for sample_id, info in SAMPLE_INPUTS.items():
 
         SAMPLE_ID = sample_id
