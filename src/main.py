@@ -14,15 +14,12 @@ parser.add_argument("-I", "--input",required=True, type=str, help="None")
 args = parser.parse_args()
 INPUT_YAML = args.input
 
-OUTDIR, SAMPLE_LIST, REFERENCE_LIST, GLOBAL_GVCF_LIST, GVCF_FILE_STRING, KNOWN_SITES_STRING = upstream_processing_flow(INPUT_YAML = INPUT_YAML)
+WORKFLOW_CONFIG, GVCF_FILE_STRING, KNOWN_SITES_STRING = upstream_processing_flow(input_yaml = INPUT_YAML)
 
 
 default_pipeline(
-    OUTDIR = OUTDIR, 
-    SAMPLE_LIST = SAMPLE_LIST, 
-    REFERENCE_LIST = REFERENCE_LIST, 
-    GLOBAL_GVCF_LIST = GLOBAL_GVCF_LIST, 
-    GVCF_FILE_STRING = GVCF_FILE_STRING, 
-    KNOWN_SITES_STRING = KNOWN_SITES_STRING
+    workflow_config = WORKFLOW_CONFIG, 
+    gvcf_file_string = GVCF_FILE_STRING, 
+    known_sites_string = KNOWN_SITES_STRING
     )
 
