@@ -107,3 +107,8 @@ export JAVA_TOOL_OPTIONS="-Xms8g -Xmx8g" \
 grep -vE '##source=|##bcftools_normVersion=|##SnpEffVersion=|##SnpSiftVersion=|##SnpEffCmd=|##SnpSiftCmd=|##GATKCommandLine=|##bcftools_normCommand=' \
     /home/lknq/GitHub/variant_analysis_pipeline/test/temp_8.vcf \
     > /home/lknq/GitHub/variant_analysis_pipeline/test/temp_8.new.vcf
+
+
+sudo apt install cloc
+
+cloc /home/lknq/GitHub/variant_analysis_pipeline
