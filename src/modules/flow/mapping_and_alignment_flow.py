@@ -4,18 +4,18 @@ from modules.header import *
 def mapping_and_alignment_flow(workflow_config):
     # Extract data
     OUTDIR = workflow_config["outdir"]
-    REFERENCE = workflow_config["reference_dict"]["genome"]
+    REFERENCE_GENOME = workflow_config["reference_dict"]["reference_genome"]
     SAMPLE_INPUTS = workflow_config["sample_inputs"]
     # setup_logger(outdir = OUTDIR)
     # Function
     for sample_id, info in SAMPLE_INPUTS.items():
 
         SAMPLE_ID = sample_id
-        PLATFORM = workflow_config["sample_inputs"][f"{sample_id}"]["platform"]
         READ_1 = workflow_config["sample_inputs"][f"{sample_id}"]["read_1"]
         READ_2 = workflow_config["sample_inputs"][f"{sample_id}"]["read_2"]
-        SAMPLE_OUTDIR = workflow_config["sample_inputs"][f"{sample_id}"]["sample_outdir"]
-        SAM_FILE = workflow_config["sample_outputs"][f"{sample_id}"]["sam_file"]
+        PLATFORM = workflow_config["sample_inputs"][f"{sample_id}"]["platform"]
+        SAMPLE_OUTDIR = workflow_config["sample_outputs"][f"{sample_id}"]["sample_outdir"]
+        SAMPLE_SAM_FILE = workflow_config["sample_outputs"][f"{sample_id}"]["sample_sam_file"]
 
         # start_time = time.time()
         # logging_info(f"Mapping and alignment sample: {sample_id}")
@@ -25,10 +25,10 @@ def mapping_and_alignment_flow(workflow_config):
                 platform=PLATFORM,
                 forward=READ_1,
                 reverse=READ_2,
-                reference=REFERENCE,
+                reference_genome=REFERENCE_GENOME,
                 outdir=OUTDIR,
                 sample_outdir=SAMPLE_OUTDIR,
-                sam_file=SAM_FILE
+                sample_sam_file=SAMPLE_SAM_FILE
             )
         else:
             mapping_and_alignment_Minimap2(
@@ -36,10 +36,10 @@ def mapping_and_alignment_flow(workflow_config):
                 platform=PLATFORM,
                 forward=READ_1,
                 reverse=READ_2,
-                reference=REFERENCE,
+                reference_genome=REFERENCE_GENOME,
                 outdir=OUTDIR,
                 sample_outdir=SAMPLE_OUTDIR,
-                sam_file=SAM_FILE
+                sample_sam_file=SAMPLE_SAM_FILE
             )
     #     end_time = time.time()
     #     duration = (end_time - start_time) / 60  
