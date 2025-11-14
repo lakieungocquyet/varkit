@@ -3,33 +3,33 @@ from modules.header import *
 def post_variant_calling_flow(workflow_config, gvcf_file_string):
 
     OUTDIR = workflow_config["outdir"]
-    REFERENCE = workflow_config["reference_dict"]["genome"]
-    COMBINATION_GVCF_FILE = workflow_config["cohort_outputs"]["combination_gvcf_file"]
+    REFERENCE_GENOME = workflow_config["reference_dict"]["reference_genome"]
     COHORT_GVCF_FILE = workflow_config["cohort_outputs"]["cohort_gvcf_file"]
-    COHORT_FILTERED_GVCF_FILE = workflow_config["cohort_outputs"]["cohort_filtered_gvcf_file"]
-    COHORT_NORMALIZED_GVCF_FILE = workflow_config["cohort_outputs"]["cohort_normalized_gvcf_file"]
+    COHORT_VCF_FILE = workflow_config["cohort_outputs"]["cohort_vcf_file"]
+    COHORT_FILTERED_VCF_FILE = workflow_config["cohort_outputs"]["cohort_filtered_vcf_file"]
+    COHORT_NORMALIZED_VCF_FILE = workflow_config["cohort_outputs"]["cohort_normalized_vcf_file"]
     
     # setup_logger(outdir = OUTDIR)
     combine_gvcfs(
         gvcf_file_string = gvcf_file_string,
-        reference = REFERENCE,
+        reference_genome=REFERENCE_GENOME,
         outdir = OUTDIR,
-        combination_gvcf_file = COMBINATION_GVCF_FILE
+        cohort_gvcf_file = COHORT_GVCF_FILE
     )
     genotype_gvcfs(
-        combination_gvcf_file = COMBINATION_GVCF_FILE, 
-        reference = REFERENCE, 
+        cohort_gvcf_file = COHORT_GVCF_FILE, 
+        reference_genome=REFERENCE_GENOME,
         outdir = OUTDIR, 
-        cohort_gvcf_file = COHORT_GVCF_FILE
+        cohort_vcf_file = COHORT_VCF_FILE
         )
     hard_filtration(
-        cohort_gvcf_file = COHORT_GVCF_FILE, 
-        reference = REFERENCE,
+        cohort_vcf_file = COHORT_VCF_FILE, 
+        reference_genome=REFERENCE_GENOME,
         outdir = OUTDIR, 
-        cohort_filtered_gvcf_file = COHORT_FILTERED_GVCF_FILE
+        cohort_filtered_vcf_file = COHORT_FILTERED_VCF_FILE
     )
     variant_normalization(
-        cohort_filtered_gvcf_file = COHORT_FILTERED_GVCF_FILE,  
+        cohort_filtered_vcf_file = COHORT_FILTERED_VCF_FILE,
         outdir = OUTDIR, 
-        cohort_normalized_gvcf_file = COHORT_NORMALIZED_GVCF_FILE
+        cohort_normalized_vcf_file = COHORT_NORMALIZED_VCF_FILE
         )
