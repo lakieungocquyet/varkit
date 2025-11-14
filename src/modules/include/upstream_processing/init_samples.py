@@ -2,18 +2,6 @@ import yaml
 import os
 import subprocess
 
-SAMPLES = None
-GENOME = None
-KNOWN_SITES = None
-OUTDIR = None
-ID = None
-R1 = None
-R2 = None
-FORWARD_AVERAGE_LENGTH = None
-REVERSE_AVERAGE_LENGTH = None
-AVERAGE_LENGTH = None
-READ_TYPE = None
-
 SAMPLE_INPUTS = {}
 REFERENCE_DICT = {}
 SAMPLE_OUTPUTS = {}
@@ -27,8 +15,14 @@ def check_average_read_length(fastq):
     average_length = subprocess.run(command, shell=True, capture_output=True, text=True)
     return float(average_length.stdout.strip() or 0)
 
-def initialize_from_yaml(INPUT_YAML):
-    with open(f"{INPUT_YAML}", "r") as f:
+def initialize_from_yaml(input_yaml):
+
+    SAMPLES = None
+    GENOME = None
+    KNOWN_SITES = None
+    OUTDIR = None
+
+    with open(f"{input_yaml}", "r") as f:
         input = yaml.safe_load(f)
         SAMPLES = input["sample"]
         GENOME = input["reference"]["genome"]
@@ -37,6 +31,15 @@ def initialize_from_yaml(INPUT_YAML):
     return SAMPLES, GENOME, KNOWN_SITES, OUTDIR
 
 def init_samples(SAMPLES, GENOME, KNOWN_SITES, OUTDIR):
+
+    ID = None
+    R1 = None
+    R2 = None
+    FORWARD_AVERAGE_LENGTH = None
+    REVERSE_AVERAGE_LENGTH = None
+    AVERAGE_LENGTH = None
+    READ_TYPE = None
+
     for sample in SAMPLES:
         ID = sample["id"]
         R1 = sample["read1"]
@@ -54,38 +57,38 @@ def init_samples(SAMPLES, GENOME, KNOWN_SITES, OUTDIR):
             # INPUT INFO
             "read_1": R1,
             "read_2": R2,
-            "sample_outdir": SAMPLE_OUTDIR, 
             "platform": "illumina",
             "average_length": AVERAGE_LENGTH,
             "read_length_type": READ_TYPE,
             }
         SAMPLE_OUTPUTS[ID] = {
             # MAPPING/ALIGNMENT INFO
-            "sam_file": f"{ID}.sam",
-            "sorted_bam_file": f"{ID}.sorted.bam",
-            "marked_bam_file": f"{ID}.marked.bam",
-            "recal_bam_file": f"{ID}.recal.bam",
-            "final_bam_file": f"{ID}.final.bam",
+            "sample_outdir": SAMPLE_OUTDIR, 
+            "sample_sam_file": f"{ID}.sam",
+            "sample_sorted_bam_file": f"{ID}.sorted.bam",
+            "sample_marked_bam_file": f"{ID}.marked.bam",
+            "sample_recal_bam_file": f"{ID}.recal.bam",
+            "sample_final_bam_file": f"{ID}.final.bam",
             # VARIANT INFO
-            "gvcf_file": f"{ID}.g.vcf",
-            "vcf_file": f"{ID}.vcf",
-            "final_vcf_file": f"{ID}.final.vcf",      
+            "sample_gvcf_file": f"{ID}.g.vcf",
+            "sample_vcf_file": f"{ID}.vcf",
+            "sample_final_vcf_file": f"{ID}.final.vcf",      
         }
         REPORT_OUTPUTS[ID] = {
             # REPORT INFO
-            "xlsx_file" : f"{ID}.xlsx"
+            "sample_xlsx_file" : f"{ID}.xlsx"
         }
     COHORT_OUTPUTS = {
-        "combination_gvcf_file": "combination.g.vcf",
         "cohort_gvcf_file": "cohort.g.vcf",
-        "cohort_filtered_gvcf_file": f"cohort.filtered.g.vcf",
-        "cohort_normalized_gvcf_file":f"cohort.normalized.g.vcf",
-        "cohort_snpEff_and_snpSift_annotated_gvcf_file": f"cohort.snpEff_and_snpSift_annotated.g.vcf",
-        "cohort_final_gvcf_file": f"cohort.final.g.vcf",
+        "cohort_vcf_file": "cohort.vcf",
+        "cohort_filtered_vcf_file": f"cohort.filtered.vcf",
+        "cohort_normalized_vcf_file":f"cohort.normalized.vcf",
+        "cohort_snpEff_and_snpSift_annotated_vcf_file": f"cohort.snpEff_and_snpSift_annotated.vcf",
+        "cohort_final_vcf_file": f"cohort.final.vcf",
     }
     REFERENCE_DICT = {
-        "genome": GENOME,
-        "known_sites": KNOWN_SITES
+        "reference_genome": GENOME,
+        "reference_known_sites": KNOWN_SITES
     }
 
     WORKFLOW_CONFIG = {
