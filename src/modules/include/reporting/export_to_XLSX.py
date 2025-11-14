@@ -48,12 +48,12 @@ OTHERS =    ["Gene_old_names","Gene_full_name","Pathway(Uniprot)","Pathway(BioCa
                 "Gene_damage_prediction(cancer_dominant_disease-causing_genes)"
             ]
 
-def export_to_XLSX(final_vcf_file, sample_outdir, xlsx_file):
-    VCF_FILE = VCF(f"{sample_outdir}/{final_vcf_file}")
+def export_to_XLSX(sample_final_vcf_file, sample_outdir, sample_xlsx_file):
+    VCF_FILE = VCF(f"{sample_outdir}/{sample_final_vcf_file}")
     data = []
     HEADER = GENERAL_INFO + DB_SNP_INFO + ONE_THOUSAND_GENOMES_INFO + EVS_INFO + CLINVAR_INFO + DB_NSFP_INFO
 
-    TOTAL_RECORD = sum(1 for _ in VCF(f"{sample_outdir}/{final_vcf_file}"))
+    TOTAL_RECORD = sum(1 for _ in VCF(f"{sample_outdir}/{sample_final_vcf_file}"))
     logging.info(f"Total variant: {TOTAL_RECORD:,}")
     for record in VCF_FILE:
         VARIANT_INDEX += 1
@@ -302,7 +302,7 @@ def export_to_XLSX(final_vcf_file, sample_outdir, xlsx_file):
         data.append(row)
 
     data_frame = pd.DataFrame(data, columns=HEADER)
-    with pd.ExcelWriter(f"{sample_outdir}/{xlsx_file}", engine="xlsxwriter") as writer:
+    with pd.ExcelWriter(f"{sample_outdir}/{sample_xlsx_file}", engine="xlsxwriter") as writer:
         data_frame_filled = data_frame.fillna(".")
         data_frame_filled.to_excel(writer, index=False, sheet_name="Sheet 1")
         workbook = writer.book
