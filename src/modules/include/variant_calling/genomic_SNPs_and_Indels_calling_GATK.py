@@ -1,12 +1,12 @@
 import subprocess
 
-def genomic_SNPs_and_Indels_calling_GATK(recal_bam_file, reference, sample_outdir, outdir, gvcf_file):
+def genomic_SNPs_and_Indels_calling_GATK(sample_recal_bam_file, reference_genome, sample_outdir, outdir, sample_gvcf_file):
     command = f"""
         /usr/bin/time -v -a -o {outdir}/runtime.log \
             gatk HaplotypeCaller \
-                -I {sample_outdir}/{recal_bam_file} \
-                -R {reference} \
-                -O {sample_outdir}/{gvcf_file} \
+                -I {sample_outdir}/{sample_recal_bam_file} \
+                -R {reference_genome} \
+                -O {sample_outdir}/{sample_gvcf_file} \
                 --native-pair-hmm-threads 8 \
                 -ERC GVCF \
                 -L /home/lknq/hg19/S07604624_Regions.bed \
