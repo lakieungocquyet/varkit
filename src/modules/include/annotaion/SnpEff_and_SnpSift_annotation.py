@@ -73,8 +73,8 @@ def snpEff_and_snpSift_annotation(cohort_normalized_vcf_file, outdir, cohort_snp
     # """
 
     command = f"""
-        /usr/bin/time -v -o {outdir}/runtime.log bash -c ' \
-            snpeff -v GRCh37.p13 {cohort_normalized_vcf_file} \
+        /usr/bin/time -v -a -o {outdir}/runtime.log bash -c ' \
+            snpeff -v GRCh37.p13 {outdir}/{cohort_normalized_vcf_file} \
             | snpsift varType - \
             | snpsift annotate -noId -name CLINVAR_ /home/lknq/anotation/clinvar/clinvar_20240716.vcf.gz - \
             | snpsift annotate -noId -name p3_1000G_ /home/lknq/hg19_known-sites/1000G_phase1.indels.hg19.sites.vcf - \
