@@ -3,9 +3,9 @@ sample:
   - id: NF2_01
     read1: /home/lknq/WES_samples/NF2_01/NF2_01_1.trim.fastq.gz
     read2: /home/lknq/WES_samples/NF2_01/NF2_01_2.trim.fastq.gz
-  - id: RGNC05
-    read1: /home/lknq/WES_samples/RGNC05/RGNC05_1.trim.fastq.gz
-    read2: /home/lknq/WES_samples/RGNC05/RGNC05_2.trim.fastq.gz
+  # - id: RGNC05
+  #   read1: /home/lknq/WES_samples/RGNC05/RGNC05_1.trim.fastq.gz
+  #   read2: /home/lknq/WES_samples/RGNC05/RGNC05_2.trim.fastq.gz
   # You can add more samples as needed
   # - id: sample2
   #   read1: /path/to/sample2_R1.fastq
