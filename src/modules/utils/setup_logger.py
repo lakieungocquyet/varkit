@@ -1,12 +1,11 @@
 import logging
-import time
 import sys
 
 def setup_logger(outdir: str):
     logger = logging.getLogger("pipeline")
     logger.setLevel(logging.INFO)
 
-    # Xóa handler cũ (tránh ghi trùng khi setup nhiều lần)
+    # Xóa handler cũ 
     if logger.hasHandlers():
         logger.handlers.clear()
 
@@ -25,8 +24,6 @@ def setup_logger(outdir: str):
     logger.addHandler(stream_handler)
     return logger
 
-
 def logging_info(msg):
-    """Ghi log mức INFO vào logger 'pipeline'."""
     logger = logging.getLogger("pipeline")
     logger.info(msg)
