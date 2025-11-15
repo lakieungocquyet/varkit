@@ -2,7 +2,7 @@ import subprocess
 
 def hard_filtration(cohort_vcf_file, reference_genome, outdir, cohort_filtered_vcf_file):
     command = f"""
-        /usr/bin/time -v -o {outdir}/runtime.log \
+        /usr/bin/time -v -a -o {outdir}/runtime.log \
             gatk VariantFiltration \
                 -R {reference_genome} \
                 -V {outdir}/{cohort_vcf_file} \
