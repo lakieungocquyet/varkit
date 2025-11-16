@@ -2,7 +2,7 @@
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 [project]
-name = "variant_analysis_pipeline"
+name = "varkit"
 version = "1.0.0"
 description = "A bioinformatics pipeline for variant calling"
 readme = "README.md"
@@ -20,8 +20,8 @@ dependencies = [
     "seaborn"
 ]
 [project.urls]
-Repository = "https://github.com/LaKieuNgocQuyet/variant_analysis_pipeline.git"
-Issues = "https://github.com/LaKieuNgocQuyet/variant_analysis_pipeline/issues"
+Repository = "https://github.com/lakieungocquyet/varkit.git"
+Issues = "https://github.com/lakieungocquyet/varkit/issues"
 [tool.setuptools.packages.find]
 where = ["src"]
 include = ["modules*", "pipelines*"]
