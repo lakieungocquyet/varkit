@@ -1,10 +1,5 @@
-import yaml
 import argparse
 import sys
-import subprocess
-import os
-import logging
-import time
 sys.dont_write_bytecode = True
 from modules.header import *
 from pipelines.default_pipeline import *
@@ -15,6 +10,10 @@ args = parser.parse_args()
 INPUT_YAML = args.input
 
 WORKFLOW_CONFIG, GVCF_FILE_STRING, KNOWN_SITES_STRING = upstream_processing_flow(input_yaml = INPUT_YAML)
+
+setup_logging(
+    outdir = WORKFLOW_CONFIG["outdir"]
+    )
 
 default_pipeline(
     workflow_config = WORKFLOW_CONFIG, 
