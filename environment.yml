@@ -1,4 +1,4 @@
-name: varcall
+name: varkit
 channels: 
 - conda-forge
 - bioconda
