@@ -1,4 +1,7 @@
-# from modules.utils.setup_logger import setup_logger, logging_info
+from modules.utils.setup_logging import setup_logging
+from modules.utils.sanitization import sanitization
+from modules.utils.log import log
+# Modules
 from modules.include.upstream_processing.init_samples import *
 from modules.include.mapping_and_alignment.mapping_and_alignment_BWA_mem import mapping_and_alignment_BWA_mem
 from modules.include.mapping_and_alignment.mapping_and_alignment_Minimap2 import mapping_and_alignment_Minimap2
@@ -8,18 +11,19 @@ from modules.include.post_mapping_and_alignment.baserecalibrator_and_applyBQSR i
 from modules.include.variant_calling.genomic_SNPs_and_Indels_calling_GATK import genomic_SNPs_and_Indels_calling_GATK
 from modules.include.post_variant_calling.genomic_variant_combination import combine_gvcfs
 from modules.include.post_variant_calling.variant_genotyping import genotype_gvcfs
-from modules.include.post_variant_calling.variant_normalization import variant_normalization
 from modules.include.post_variant_calling.variant_filtration import hard_filtration
+from modules.include.post_variant_calling.variant_normalization import variant_normalization
 from modules.include.annotaion.SnpEff_and_SnpSift_annotation import snpEff_and_snpSift_annotation
 from modules.include.downstream_processing.variant_selection import select_variant_by_sample
-from modules.include.downstream_processing.sanitization_vcf_file import sanitization_vcf_file
 from modules.include.reporting.export_to_XLSX import export_to_XLSX
+# Flows
+from modules.flow.upstream_processing_flow  import upstream_processing_flow
 from modules.flow.mapping_and_alignment_flow import mapping_and_alignment_flow
 from modules.flow.post_mapping_and_alignment_flow import post_mapping_and_alignment_flow
 from modules.flow.variant_calling_flow import variant_calling_flow
 from modules.flow.post_variant_calling_flow import post_variant_calling_flow
 from modules.flow.variant_annotation_flow import variant_annotation_flow
 from modules.flow.downstream_processing_flow import downstream_processing_flow
-from modules.flow.upstream_processing_flow  import upstream_processing_flow
+
 
 
