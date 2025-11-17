@@ -11,10 +11,6 @@ INPUT_YAML = args.input
 
 WORKFLOW_CONFIG, GVCF_FILE_STRING, KNOWN_SITES_STRING = upstream_processing_flow(input_yaml = INPUT_YAML)
 
-setup_logging(
-    outdir = WORKFLOW_CONFIG["outdir"]
-    )
-
 default_pipeline(
     workflow_config = WORKFLOW_CONFIG, 
     gvcf_file_string = GVCF_FILE_STRING, 
