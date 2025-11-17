@@ -1,6 +1,0 @@
-[wsl2]
-memory=8GB
-swap=8GB
-processors=8
-[experimental]
-sparseVhd=true
