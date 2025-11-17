@@ -1,4 +1,3 @@
-# test code
-test/
-# example
-example/
+# pixi environments
+.pixi/*
+!.pixi/config.toml
