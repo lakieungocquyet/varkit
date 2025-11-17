@@ -13,7 +13,7 @@ from modules.include.post_variant_calling.genomic_variant_combination import com
 from modules.include.post_variant_calling.variant_genotyping import genotype_gvcfs
 from modules.include.post_variant_calling.variant_filtration import hard_filtration
 from modules.include.post_variant_calling.variant_normalization import variant_normalization
-from modules.include.annotaion.SnpEff_and_SnpSift_annotation import snpEff_and_snpSift_annotation
+from modules.include.annotaion.SnpEff_and_SnpSift_annotation import *
 from modules.include.downstream_processing.variant_selection import select_variant_by_sample
 from modules.include.reporting.export_to_XLSX import export_to_XLSX
 # Flows
