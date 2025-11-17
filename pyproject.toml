@@ -22,6 +22,3 @@ dependencies = [
 [project.urls]
 Repository = "https://github.com/lakieungocquyet/varkit.git"
 Issues = "https://github.com/lakieungocquyet/varkit/issues"
-[tool.setuptools.packages.find]
-where = ["src"]
-include = ["modules*", "pipelines*"]
