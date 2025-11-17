@@ -6,7 +6,6 @@ def mapping_and_alignment_flow(workflow_config):
     OUTDIR = workflow_config["outdir"]
     REFERENCE_GENOME = workflow_config["reference_dict"]["reference_genome"]
     SAMPLE_INPUTS = workflow_config["sample_inputs"]
-    # setup_logger(outdir = OUTDIR)
     # Function
     for sample_id, info in SAMPLE_INPUTS.items():
 
@@ -17,8 +16,8 @@ def mapping_and_alignment_flow(workflow_config):
         SAMPLE_OUTDIR = workflow_config["sample_outputs"][f"{sample_id}"]["sample_outdir"]
         SAMPLE_SAM_FILE = workflow_config["sample_outputs"][f"{sample_id}"]["sample_sam_file"]
 
-        # start_time = time.time()
-        # logging_info(f"Mapping and alignment sample: {sample_id}")
+        start_time = time.time()
+        log.info(f"Mapping and alignment sample: {sample_id}")
         if info["read_length_type"] == "short":
             mapping_and_alignment_BWA_mem(
                 sample_id=SAMPLE_ID,
@@ -41,7 +40,7 @@ def mapping_and_alignment_flow(workflow_config):
                 sample_outdir=SAMPLE_OUTDIR,
                 sample_sam_file=SAMPLE_SAM_FILE
             )
-    #     end_time = time.time()
-    #     duration = (end_time - start_time) / 60  
-    #     logging_info(f"{sample_id} finished mapping and alignment in {duration:.2f} minutes")
-    # logging_info("All samples finished mapping and alignment step.")
+        end_time = time.time()
+        duration = (end_time - start_time) / 60  
+        log.info(f"{sample_id} finished mapping and alignment in {duration:.2f} minutes")
+    log.info("All samples finished mapping and alignment step.")
