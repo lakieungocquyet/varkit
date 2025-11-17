@@ -3,7 +3,7 @@ from modules.header import *
 
 def mapping_and_alignment_flow(workflow_config):
     # Extract data
-    OUTDIR = workflow_config["outdir"]
+    TEMP_OUTDIR = workflow_config["temp_outdir"]
     REFERENCE_GENOME = workflow_config["reference_dict"]["reference_genome"]
     SAMPLE_INPUTS = workflow_config["sample_inputs"]
     # Function
@@ -13,7 +13,7 @@ def mapping_and_alignment_flow(workflow_config):
         READ_1 = workflow_config["sample_inputs"][f"{sample_id}"]["read_1"]
         READ_2 = workflow_config["sample_inputs"][f"{sample_id}"]["read_2"]
         PLATFORM = workflow_config["sample_inputs"][f"{sample_id}"]["platform"]
-        SAMPLE_OUTDIR = workflow_config["sample_outputs"][f"{sample_id}"]["sample_outdir"]
+        TEMP_SAMPLE_OUTDIR = workflow_config["sample_outputs"][f"{sample_id}"]["temp_sample_outdir"]
         SAMPLE_SAM_FILE = workflow_config["sample_outputs"][f"{sample_id}"]["sample_sam_file"]
 
         start_time = time.time()
@@ -25,9 +25,9 @@ def mapping_and_alignment_flow(workflow_config):
                 forward=READ_1,
                 reverse=READ_2,
                 reference_genome=REFERENCE_GENOME,
-                outdir=OUTDIR,
-                sample_outdir=SAMPLE_OUTDIR,
-                sample_sam_file=SAMPLE_SAM_FILE
+                outdir=TEMP_OUTDIR,
+                sample_outdir=TEMP_SAMPLE_OUTDIR,
+                output_file=SAMPLE_SAM_FILE
             )
         else:
             mapping_and_alignment_Minimap2(
@@ -36,9 +36,9 @@ def mapping_and_alignment_flow(workflow_config):
                 forward=READ_1,
                 reverse=READ_2,
                 reference_genome=REFERENCE_GENOME,
-                outdir=OUTDIR,
-                sample_outdir=SAMPLE_OUTDIR,
-                sample_sam_file=SAMPLE_SAM_FILE
+                outdir=TEMP_OUTDIR,
+                sample_outdir=TEMP_SAMPLE_OUTDIR,
+                output_file=SAMPLE_SAM_FILE
             )
         end_time = time.time()
         duration = (end_time - start_time) / 60  
