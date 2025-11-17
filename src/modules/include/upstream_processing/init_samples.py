@@ -1,6 +1,9 @@
 import yaml
 import os
 import subprocess
+import pathlib
+from datetime import datetime
+import uuid
 
 SAMPLE_INPUTS = {}
 REFERENCE_DICT = {}
@@ -9,6 +12,13 @@ COHORT_OUTPUTS = {}
 REPORT_OUTPUTS = {}
 
 WORKFLOW_CONFIG = {}
+
+def create_temp_outdir(root):
+    timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+    unique_id = uuid.uuid4().hex[:8]
+    path = pathlib.Path(root) / f"{timestamp}_{unique_id}"
+    path.mkdir(parents=True, exist_ok=True)
+    return path
 
 def check_average_read_length(fastq):
     command = f'seqtk seq -A "{fastq}" | awk \'{{if(NR%2==0){{sum+=length($0);n++}}}} END{{if(n>0) print sum/n; else print 0}}\''
@@ -21,7 +31,6 @@ def initialize_from_yaml(input_yaml):
     GENOME = None
     KNOWN_SITES = None
     OUTDIR = None
-
     with open(f"{input_yaml}", "r") as f:
         input = yaml.safe_load(f)
         SAMPLES = input["sample"]
@@ -40,6 +49,10 @@ def init_samples(SAMPLES, GENOME, KNOWN_SITES, OUTDIR):
     AVERAGE_LENGTH = None
     READ_TYPE = None
 
+    TEMP_OUTDIR = create_temp_outdir(
+        root = "/otp/varkit/jobspace"
+    )
+
     for sample in SAMPLES:
         ID = sample["id"]
         R1 = sample["read1"]
@@ -52,7 +65,9 @@ def init_samples(SAMPLES, GENOME, KNOWN_SITES, OUTDIR):
         else:
             READ_TYPE = "short"
         SAMPLE_OUTDIR = os.path.join(OUTDIR, ID)
+        TEMP_SAMPLE_OUTDIR = os.path.join(TEMP_OUTDIR, ID)
         os.makedirs(SAMPLE_OUTDIR, exist_ok=True)
+        os.makedirs(TEMP_SAMPLE_OUTDIR, exist_ok=True)
         SAMPLE_INPUTS[ID] = {
             # INPUT INFO
             "read_1": R1,
@@ -64,6 +79,7 @@ def init_samples(SAMPLES, GENOME, KNOWN_SITES, OUTDIR):
         SAMPLE_OUTPUTS[ID] = {
             # MAPPING/ALIGNMENT INFO
             "sample_outdir": SAMPLE_OUTDIR, 
+            "temp_sample_outdir": TEMP_SAMPLE_OUTDIR,
             "sample_sam_file": f"{ID}.sam",
             "sample_sorted_bam_file": f"{ID}.sorted.bam",
             "sample_marked_bam_file": f"{ID}.marked.bam",
@@ -78,6 +94,7 @@ def init_samples(SAMPLES, GENOME, KNOWN_SITES, OUTDIR):
             # REPORT INFO
             "sample_xlsx_file" : f"{ID}.xlsx"
         }
+
     COHORT_OUTPUTS = {
         "cohort_gvcf_file": "cohort.g.vcf",
         "cohort_vcf_file": "cohort.vcf",
@@ -102,7 +119,8 @@ def init_samples(SAMPLES, GENOME, KNOWN_SITES, OUTDIR):
         "sample_outputs": SAMPLE_OUTPUTS, 
         "cohort_outputs": COHORT_OUTPUTS, 
         "report_outputs": REPORT_OUTPUTS,
-        "outdir": OUTDIR 
+        "outdir": OUTDIR,
+        "temp_outdir": TEMP_OUTDIR
         }
 
     return WORKFLOW_CONFIG
