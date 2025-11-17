@@ -4,6 +4,7 @@ import sys
 import logging
 import time
 import xlsxwriter
+from modules.header import *
 
 GENERAL_INFO =  ["CHROM"             ,"POS"            ,"REF"        ,"ALT"         ,"DP"        ,
                  "AD"                ,"QUAL"           ,"MQ"         ,"Zygosity"    ,"FILTER"    ,
@@ -48,16 +49,16 @@ OTHERS =    ["Gene_old_names","Gene_full_name","Pathway(Uniprot)","Pathway(BioCa
                 "Gene_damage_prediction(cancer_dominant_disease-causing_genes)"
             ]
 
-def export_to_XLSX(sample_final_vcf_file, sample_outdir, sample_xlsx_file):
-    VCF_FILE = VCF(f"{sample_outdir}/{sample_final_vcf_file}")
+def export_to_XLSX(input_file, sample_outdir, output_file):
+    VCF_FILE = VCF(f"{sample_outdir}/{input_file}")
     data = []
     HEADER = GENERAL_INFO + DB_SNP_INFO + ONE_THOUSAND_GENOMES_INFO + EVS_INFO + CLINVAR_INFO + DB_NSFP_INFO
 
-    TOTAL_RECORD = sum(1 for _ in VCF(f"{sample_outdir}/{sample_final_vcf_file}"))
-    logging.info(f"Total variant: {TOTAL_RECORD:,}")
+    TOTAL_RECORD = sum(1 for _ in VCF(f"{sample_outdir}/{input_file}"))
+    log.info(f"Total variant: {TOTAL_RECORD:,}")
     for record in VCF_FILE:
         VARIANT_INDEX += 1
-        logging.info(f"processing variant {VARIANT_INDEX:,}/{TOTAL_RECORD:,}")
+        log.info(f"processing variant {VARIANT_INDEX:,}/{TOTAL_RECORD:,}")
         ANN_values = record.INFO.get("ANN")
         if not ANN_values:
             continue
@@ -302,7 +303,7 @@ def export_to_XLSX(sample_final_vcf_file, sample_outdir, sample_xlsx_file):
         data.append(row)
 
     data_frame = pd.DataFrame(data, columns=HEADER)
-    with pd.ExcelWriter(f"{sample_outdir}/{sample_xlsx_file}", engine="xlsxwriter") as writer:
+    with pd.ExcelWriter(f"{sample_outdir}/{output_file}", engine="xlsxwriter") as writer:
         data_frame_filled = data_frame.fillna(".")
         data_frame_filled.to_excel(writer, index=False, sheet_name="Sheet 1")
         workbook = writer.book
