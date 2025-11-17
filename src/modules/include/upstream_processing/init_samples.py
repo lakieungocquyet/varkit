@@ -83,8 +83,13 @@ def init_samples(SAMPLES, GENOME, KNOWN_SITES, OUTDIR):
         "cohort_vcf_file": "cohort.vcf",
         "cohort_filtered_vcf_file": f"cohort.filtered.vcf",
         "cohort_normalized_vcf_file":f"cohort.normalized.vcf",
-        "cohort_snpEff_and_snpSift_annotated_vcf_file": f"cohort.snpEff_and_snpSift_annotated.vcf",
+        "cohort_genome_annotated_vcf_file": f"cohort.genome_annotated.vcf",
+        "cohort_clinvar_annotated_vcf_file": f"cohort.clinvar_annotated.vcf",
+        "cohort_p3_1000g_annotated_vcf_file": f"cohort.p3_1000g_annotated.vcf",
+        "cohort_dbsnp_annotated_vcf_file": f"cohort.dbsnp_annotated.vcf",
+        "cohort_dbnsfp_annotated_vcf_file": f"cohort.dbnsfp_annotated.vcf",
         "cohort_final_vcf_file": f"cohort.final.vcf",
+
     }
     REFERENCE_DICT = {
         "reference_genome": GENOME,
