@@ -1,6 +1,6 @@
 import subprocess
 
-def mapping_and_alignment_BWA_mem(forward, reverse, sample_id, platform, reference_genome, sample_outdir, outdir, sample_sam_file):
+def mapping_and_alignment_BWA_mem(forward, reverse, sample_id, platform, reference_genome, sample_outdir, outdir, output_file):
 
     command = f"""
         /usr/bin/time -v -a -o {outdir}/runtime.log \
@@ -9,7 +9,7 @@ def mapping_and_alignment_BWA_mem(forward, reverse, sample_id, platform, referen
                 {reference_genome} \
                 {forward} \
                 {reverse} \
-            > {sample_outdir}/{sample_sam_file} \
+            > {sample_outdir}/{output_file} \
         2>> {outdir}/monitoring.log
     """
     subprocess.run(command, shell=True, check=True)
