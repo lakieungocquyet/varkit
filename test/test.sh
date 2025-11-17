@@ -111,4 +111,4 @@ grep -vE '##source=|##bcftools_normVersion=|##SnpEffVersion=|##SnpSiftVersion=|#
 
 sudo apt install cloc
 
-cloc /home/lknq/GitHub/variant_analysis_pipeline
+cloc /home/lknq/GitHub/varkit
