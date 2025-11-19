@@ -9,25 +9,25 @@ def post_variant_calling_flow(workflow_config, gvcf_file_string):
     COHORT_FILTERED_VCF_FILE = workflow_config["cohort_outputs"]["cohort_filtered_vcf_file"]
     COHORT_NORMALIZED_VCF_FILE = workflow_config["cohort_outputs"]["cohort_normalized_vcf_file"]
     
-    combine_gvcfs(
+    combine_genomic_variants_GATK(
         gvcf_file_string = gvcf_file_string,
         reference_genome=REFERENCE_GENOME,
         outdir = TEMP_OUTDIR,
         output_file = COHORT_GVCF_FILE
     )
-    genotype_gvcfs(
+    genotype_variants_GATK(
         input_file = COHORT_GVCF_FILE, 
         reference_genome=REFERENCE_GENOME,
         outdir = TEMP_OUTDIR, 
         output_file = COHORT_VCF_FILE
         )
-    hard_filtration(
+    hard_filter_variants_GATK(
         input_file = COHORT_VCF_FILE, 
         reference_genome=REFERENCE_GENOME,
         outdir = TEMP_OUTDIR, 
         output_file = COHORT_FILTERED_VCF_FILE
     )
-    variant_normalization(
+    normalize_variants_GATK(
         input_file = COHORT_FILTERED_VCF_FILE,
         outdir = TEMP_OUTDIR, 
         output_file = COHORT_NORMALIZED_VCF_FILE
