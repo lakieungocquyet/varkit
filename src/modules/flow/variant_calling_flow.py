@@ -14,7 +14,7 @@ def variant_calling_flow(workflow_config):
         
         start_time = time.time()
         log.info(f"Variant calling sample: {sample_id}")
-        genomic_SNPs_and_Indels_calling_GATK(
+        call_genomic_snps_and_indels__GATK(
             input_file=SAMPLE_RECAL_BAM_FILE,
             reference_genome=REFERENCE_GENOME,
             sample_outdir=TEMP_SAMPLE_OUTDIR,
