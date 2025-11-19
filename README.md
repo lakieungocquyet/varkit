@@ -1,41 +1,15 @@
 # Overview
-Pipeline for analyzing sequencing data
+Software for analyzing sequencing data
 # Requirements
-*   Unix-like operating system (cannot run on Windows)
-*   Python >=3.10
-# Install
-### Method 1: Using [Docker](https://www.docker.com/) (recommended method)
-If you haven't installed Docker , please install Docker Engine following the manufacture guideline document [here](https://docs.docker.com/engine/install/)
-### Method 2: Build from source
-If you haven't had git, please run the folowing command in the terminal
-```bash
-sudo apt-get update
-sudo apt-get install git
-```
-Clone repository from github
-```bash
-git clone https://github.com/LaKieuNgocQuyet/variant_analysis_pipeline.git
-```
-Then install 
-```bash
-cd variant_analysis_pipeline
-bash install.sh
-```
-# Prepare reference data
-### Download reference genome 
-Firstly, we should install wget for the next step by the folowing command
-```bash
-sudo apt-get update
-sudo apt-get install wget
-```
-If you use GRCh37 human genome, run the folowing command in the terminal
-```bash
 
-```
+# Install
+
 # License
 Licensed under the GPL-3.0. See the [LICENSE.txt](https://github.com/LaKieuNgocQuyet/variant_analysis_pipeline/blob/main/LICENSE) file.
 # References
+
 * Li, H. (2018). Minimap2: pairwise alignment for nucleotide sequences. Bioinformatics, 34:3094-3100. [doi:10.1093/bioinformatics/bty191](https://academic.oup.com/bioinformatics/article/34/18/3094/4994778?login=false)
 * Li, H. (2021). New strategies to improve minimap2 alignment accuracy. Bioinformatics, 37:4572-4574. [doi:10.1093/bioinformatics/btab705](https://academic.oup.com/bioinformatics/article/37/23/4572/6384570?login=false)
-
-
+* Van der Auwera GA & O'Connor BD. (2020). Genomics in the Cloud: Using Docker, GATK, and WDL in Terra (1st Edition). O'Reilly Media.
+* Poplin R, Ruano-Rubio V, DePristo MA, Fennell TJ, Carneiro MO, Van der Auwera GA, Kling DE, Gauthier LD, Levy-Moonshine A, Roazen D, Shakir K, Thibault J, Chandran S, Whelan C, Lek M, Gabriel S, Daly MJ, Neale B, MacArthur DG, Banks E. (2017). Scaling accurate genetic variant discovery to tens of thousands of samples bioRxiv, 201178. [DOI: 10.1101/201178](https://doi.org/10.1101/201178)
+* Van der Auwera GA, Carneiro M, Hartl C, Poplin R, del Angel G, Levy-Moonshine A, Jordan T, Shakir K, Roazen D, Thibault J, Banks E, Garimella K, Altshuler D, Gabriel S, DePristo M. (2013). From FastQ Data to High-Confidence Variant Calls: The Genome Analysis Toolkit Best Practices Pipeline. Curr Protoc Bioinformatics, 43:11.10.1-11.10.33. [DOI: 10.1002/0471250953.bi1110s43](http://dx.doi.org/10.1002/0471250953.bi1110s43).
