@@ -1,21 +1,29 @@
+# Utils
 from modules.utils.setup_logging import setup_logging
-from modules.utils.sanitization import sanitization
+from GitHub.varkit.src.modules.utils.sanitize import sanitization
 from modules.utils.log import log
+from modules.utils.check_index_file import *
 # Modules
-from modules.include.upstream_processing.init_samples import *
-from modules.include.mapping_and_alignment.mapping_and_alignment_BWA_mem import mapping_and_alignment_BWA_mem
-from modules.include.mapping_and_alignment.mapping_and_alignment_Minimap2 import mapping_and_alignment_Minimap2
-from modules.include.post_mapping_and_alignment.convert_and_sort import convert_and_sort
-from modules.include.post_mapping_and_alignment.markduplicates import markduplicates
-from modules.include.post_mapping_and_alignment.baserecalibrator_and_applyBQSR import baserecalibrator, applyBQSR
-from modules.include.variant_calling.genomic_SNPs_and_Indels_calling_GATK import genomic_SNPs_and_Indels_calling_GATK
-from modules.include.post_variant_calling.genomic_variant_combination import combine_gvcfs
-from modules.include.post_variant_calling.variant_genotyping import genotype_gvcfs
-from modules.include.post_variant_calling.variant_filtration import hard_filtration
-from modules.include.post_variant_calling.variant_normalization import variant_normalization
-from modules.include.annotaion.SnpEff_and_SnpSift_annotation import *
-from modules.include.downstream_processing.variant_selection import select_variant_by_sample
-from modules.include.reporting.export_to_XLSX import export_to_XLSX
+## Upstream processing
+from modules.include.upstream_processing.initialize_samples import *
+from modules.include.upstream_processing.index_reference_file import *
+## Mapping and Alignment
+from modules.include.mapping_and_alignment.map_and_align_BWA_mem import map_and_align_BWA_mem
+from modules.include.mapping_and_alignment.map_and_align_Minimap2 import map_and_align_Minimap2
+## Post Mapping and Alignment
+from modules.include.post_mapping_and_alignment.convert_and_sort_Samtools import convert_and_sort_Samtools
+from modules.include.post_mapping_and_alignment.markduplicates_GATK import markduplicates_GATK
+from modules.include.post_mapping_and_alignment.recalibrate_and_applyBQSR_GATK import *
+## Variant Calling
+from modules.include.variant_calling.call_genomic_snps_and_indels_GATK import call_genomic_snps_and_indels__GATK
+## Post Variant Calling
+from modules.include.post_variant_calling.combine_genomic_variants_GATK import combine_genomic_variants_GATK
+from modules.include.post_variant_calling.genotype_variants_GATK import genotype_variants_GATK
+from modules.include.post_variant_calling.filter_variants_GATK import hard_filter_variants_GATK
+from modules.include.post_variant_calling.normalize_variants_GATK import normalize_variants_GATK
+from modules.include.annotaion.annotate_variants_SnpEff_and_SnpSift import *
+from modules.include.downstream_processing.select_variants_GATK import select_variants_by_sample_GATK
+from modules.include.reporting.generate_XLSX_report import generate_XLSX_report
 # Flows
 from modules.flow.upstream_processing_flow  import upstream_processing_flow
 from modules.flow.mapping_and_alignment_flow import mapping_and_alignment_flow
