@@ -19,7 +19,15 @@ def mapping_and_alignment_flow(workflow_config):
         start_time = time.time()
         log.info(f"Mapping and alignment sample: {sample_id}")
         if info["read_length_type"] == "short":
-            mapping_and_alignment_BWA_mem(
+
+            bwa_ready , missing_files = check_bwa_index(REFERENCE_GENOME)
+            if not bwa_ready:
+                log.info(f"BWA index files missing: {missing_files}, creating BWA index for {REFERENCE_GENOME}")
+                index_reference_genome_bwa(REFERENCE_GENOME)
+            else:
+                log.info(f"BWA index files found for {REFERENCE_GENOME}, skipping indexing step.")
+
+            map_and_align_BWA_mem(
                 sample_id=SAMPLE_ID,
                 platform=PLATFORM,
                 forward=READ_1,
@@ -30,7 +38,13 @@ def mapping_and_alignment_flow(workflow_config):
                 output_file=SAMPLE_SAM_FILE
             )
         else:
-            mapping_and_alignment_Minimap2(
+            minimap2_ready = check_minimap2_index(REFERENCE_GENOME)
+            if not minimap2_ready:
+                log.info(f"Minimap2 index file missing for {REFERENCE_GENOME}, creating Minimap2 index.")
+                index_reference_genome_minimap2(REFERENCE_GENOME)
+            else:
+                log.info(f"Minimap2 index file found for {REFERENCE_GENOME}, skipping indexing step.")
+            map_and_align_Minimap2(
                 sample_id=SAMPLE_ID,
                 platform=PLATFORM,
                 forward=READ_1,
