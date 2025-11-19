@@ -12,7 +12,7 @@ def upstream_processing_flow(input_yaml):
     )
 
     log.info("Starting sample preparation step...")
-    WORKFLOW_CONFIG = init_samples(
+    WORKFLOW_CONFIG = initialize_samples(
         SAMPLES = SAMPLES, 
         GENOME = GENOME, 
         KNOWN_SITES = KNOWN_SITES, 
