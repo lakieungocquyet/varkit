@@ -1,7 +1,6 @@
 from modules.header import *
 
 def default_pipeline(workflow_config, gvcf_file_string, known_sites_string):
-    # setup_logger(outdir = OUTDIR)
     # [STAGE 1]: MAPPING AND ALIGNMENT
     mapping_and_alignment_flow(
         workflow_config = workflow_config
