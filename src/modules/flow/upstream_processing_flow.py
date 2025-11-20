@@ -31,4 +31,8 @@ def upstream_processing_flow(input_yaml):
     sample_info = yaml.dump(WORKFLOW_CONFIG["sample_inputs"], sort_keys=False, default_flow_style=False).rstrip()
     log.info(f"Sample information:\n{sample_info}")
 
+    fetch_input_data(
+        workflow_config = WORKFLOW_CONFIG
+    )
+    
     return WORKFLOW_CONFIG, GVCF_FILE_STRING, KNOWN_SITES_STRING
