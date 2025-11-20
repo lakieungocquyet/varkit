@@ -1,6 +1,6 @@
 import subprocess
 
-def sanitization(input_file, outdir, output_file):
+def sanitize(input_file, outdir, output_file):
     command = f"""
         /usr/bin/time -v -a -o {outdir}/runtime.log \
             grep -vE \
