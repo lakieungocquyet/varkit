@@ -3,5 +3,5 @@
 !.pixi/config.toml
 pixi.lock
 
-.test/*
-.example/*
+test/*
+example/*
