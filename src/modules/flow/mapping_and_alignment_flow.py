@@ -10,8 +10,8 @@ def mapping_and_alignment_flow(workflow_config):
     for sample_id, info in SAMPLE_INPUTS.items():
 
         SAMPLE_ID = sample_id
-        READ_1 = workflow_config["sample_inputs"][f"{sample_id}"]["read_1"]
-        READ_2 = workflow_config["sample_inputs"][f"{sample_id}"]["read_2"]
+        READ_1_PATH = workflow_config["sample_outputs"][f"{sample_id}"]["temp_read_1_path"]
+        READ_2_PATH = workflow_config["sample_outputs"][f"{sample_id}"]["temp_read_2_path"]
         PLATFORM = workflow_config["sample_inputs"][f"{sample_id}"]["platform"]
         TEMP_SAMPLE_OUTDIR = workflow_config["sample_outputs"][f"{sample_id}"]["temp_sample_outdir"]
         SAMPLE_SAM_FILE = workflow_config["sample_outputs"][f"{sample_id}"]["sample_sam_file"]
@@ -30,8 +30,8 @@ def mapping_and_alignment_flow(workflow_config):
             map_and_align_BWA_mem(
                 sample_id=SAMPLE_ID,
                 platform=PLATFORM,
-                forward=READ_1,
-                reverse=READ_2,
+                forward=READ_1_PATH,
+                reverse=READ_2_PATH,
                 reference_genome=REFERENCE_GENOME,
                 outdir=TEMP_OUTDIR,
                 sample_outdir=TEMP_SAMPLE_OUTDIR,
@@ -47,8 +47,8 @@ def mapping_and_alignment_flow(workflow_config):
             map_and_align_Minimap2(
                 sample_id=SAMPLE_ID,
                 platform=PLATFORM,
-                forward=READ_1,
-                reverse=READ_2,
+                forward=READ_1_PATH,
+                reverse=READ_2_PATH,
                 reference_genome=REFERENCE_GENOME,
                 outdir=TEMP_OUTDIR,
                 sample_outdir=TEMP_SAMPLE_OUTDIR,
