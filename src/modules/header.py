@@ -1,12 +1,14 @@
 # Utils
 from modules.utils.setup_logging import setup_logging
-from GitHub.varkit.src.modules.utils.sanitize import sanitization
+from GitHub.varkit.src.modules.utils.sanitize import sanitize
 from modules.utils.log import log
 from modules.utils.check_index_file import *
+from modules.utils.translate_path import translate_path
 # Modules
 ## Upstream processing
 from modules.include.upstream_processing.initialize_samples import *
 from modules.include.upstream_processing.index_reference_file import *
+from modules.include.upstream_processing.fetch_input_data import fetch_input_data
 ## Mapping and Alignment
 from modules.include.mapping_and_alignment.map_and_align_BWA_mem import map_and_align_BWA_mem
 from modules.include.mapping_and_alignment.map_and_align_Minimap2 import map_and_align_Minimap2
@@ -32,6 +34,7 @@ from modules.flow.variant_calling_flow import variant_calling_flow
 from modules.flow.post_variant_calling_flow import post_variant_calling_flow
 from modules.flow.variant_annotation_flow import variant_annotation_flow
 from modules.flow.downstream_processing_flow import downstream_processing_flow
+from modules.flow.reporting_flow import reporting_flow
 
 
 
