@@ -1,4 +1,5 @@
 import subprocess
+import os
 def convert_and_sort_Samtools(input_file, sample_outdir, outdir, output_file):
     command = f"""
         /usr/bin/time -v -a -o {outdir}/runtime.log bash -c '\
