@@ -1,5 +1,6 @@
 import time
 from modules.header import *
+import os
 
 def post_mapping_and_alignment_flow(workflow_config, known_sites_string):
 
@@ -37,12 +38,14 @@ def post_mapping_and_alignment_flow(workflow_config, known_sites_string):
             output_file=SAMPLE_SORTED_BAM_FILE,
             outdir=TEMP_OUTDIR
         )
+        os.remove(f"{TEMP_SAMPLE_OUTDIR}/{SAMPLE_SAM_FILE}") 
         markduplicates_GATK(
             input_file=SAMPLE_SORTED_BAM_FILE,
             sample_outdir=TEMP_SAMPLE_OUTDIR,
             outdir=TEMP_OUTDIR,
             output_file=SAMPLE_MARKED_BAM_FILE,
         )
+        os.remove(f"{TEMP_SAMPLE_OUTDIR}/{SAMPLE_SORTED_BAM_FILE}")
         recalibrate_bases_GATK(
             input_file=SAMPLE_MARKED_BAM_FILE,
             sample_outdir=TEMP_SAMPLE_OUTDIR,
@@ -57,6 +60,7 @@ def post_mapping_and_alignment_flow(workflow_config, known_sites_string):
             outdir=TEMP_OUTDIR,
             output_file=SAMPLE_RECAL_BAM_FILE,
         )  
+        os.remove(f"{TEMP_SAMPLE_OUTDIR}/{SAMPLE_MARKED_BAM_FILE}")
         end_time = time.time()
         duration = (end_time - start_time) / 60  
         log.info(f"{sample_id} finished post-mapping and alignment in {duration:.2f} minutes")
