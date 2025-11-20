@@ -3,13 +3,14 @@ import os
 import subprocess
 import pathlib
 from datetime import datetime
+from modules.utils.translate_path import translate_path
 import uuid
 
-SAMPLE_INPUTS = {}
+SAMPLE_INPUTS_DICT = {}
 REFERENCE_DICT = {}
-SAMPLE_OUTPUTS = {}
-COHORT_OUTPUTS = {}
-REPORT_OUTPUTS = {}
+SAMPLE_OUTPUTS_DICT = {}
+COHORT_OUTPUTS_DICT = {}
+REPORT_OUTPUTS_DICT = {}
 
 WORKFLOW_CONFIG = {}
 
@@ -26,76 +27,74 @@ def check_average_read_length(fastq):
     return float(average_length.stdout.strip() or 0)
 
 def initialize_from_yaml(input_yaml):
-
-    SAMPLES = None
-    GENOME = None
-    KNOWN_SITES = None
-    OUTDIR = None
     with open(f"{input_yaml}", "r") as f:
         input = yaml.safe_load(f)
-        SAMPLES = input["sample"]
-        GENOME = input["reference"]["genome"]
-        KNOWN_SITES = input["reference"]["known_site"]
-        OUTDIR = input["output"]["directory"]
-    return SAMPLES, GENOME, KNOWN_SITES, OUTDIR
+        SAMPLE_LIST = input["input_paths"]["sample"]
+        GENOME_PATH = input["input_paths"]["reference"]["genome"]
+        KNOWN_SITES_LIST = input["input_paths"]["reference"]["known_site"]
+        OUTDIR_PATH = input["input_paths"]["output"]["directory"]
+    return SAMPLE_LIST, GENOME_PATH, KNOWN_SITES_LIST, OUTDIR_PATH
 
-def initialize_samples(SAMPLES, GENOME, KNOWN_SITES, OUTDIR):
-
-    ID = None
-    R1 = None
-    R2 = None
-    FORWARD_AVERAGE_LENGTH = None
-    REVERSE_AVERAGE_LENGTH = None
-    AVERAGE_LENGTH = None
-    READ_TYPE = None
-
-    TEMP_OUTDIR = create_temp_outdir(
+def initialize_samples(SAMPLE_LIST, GENOME_PATH, KNOWN_SITES_LIST, OUTDIR_PATH):
+    TEMP_OUTDIR_PATH = create_temp_outdir(
         root = "/otp/varkit/jobspace"
     )
-
-    for sample in SAMPLES:
-        ID = sample["id"]
-        R1 = sample["read1"]
-        R2 = sample["read2"]
-        FORWARD_AVERAGE_LENGTH = check_average_read_length(R1)
-        REVERSE_AVERAGE_LENGTH = check_average_read_length(R2)
+    for SAMPLE in SAMPLE_LIST:
+        SAMPLE_ID = SAMPLE["id"]
+        READ_1_PATH = SAMPLE["read1"]
+        READ_2_PATH = SAMPLE["read2"]
+        READ_1_WSL_PATH = translate_path(READ_1_PATH)
+        READ_2_WSL_PATH = translate_path(READ_2_PATH)
+        FORWARD_AVERAGE_LENGTH = check_average_read_length(READ_1_WSL_PATH)
+        REVERSE_AVERAGE_LENGTH = check_average_read_length(READ_2_WSL_PATH)
         AVERAGE_LENGTH = (FORWARD_AVERAGE_LENGTH + REVERSE_AVERAGE_LENGTH) / 2   
         if AVERAGE_LENGTH >= 200:
             READ_TYPE = "long"
         else:
             READ_TYPE = "short"
-        SAMPLE_OUTDIR = os.path.join(OUTDIR, ID)
-        TEMP_SAMPLE_OUTDIR = os.path.join(TEMP_OUTDIR, ID)
-        os.makedirs(SAMPLE_OUTDIR, exist_ok=True)
-        os.makedirs(TEMP_SAMPLE_OUTDIR, exist_ok=True)
-        SAMPLE_INPUTS[ID] = {
+
+        SAMPLE_OUTDIR_PATH = os.path.join(OUTDIR_PATH, SAMPLE_ID)
+        TEMP_SAMPLE_OUTDIR_PATH = os.path.join(TEMP_OUTDIR_PATH, SAMPLE_ID)
+        TEMP_SAMPLE_FETCHDIR_PATH = os.path.join(TEMP_SAMPLE_OUTDIR_PATH, "Input")
+
+        os.makedirs(SAMPLE_OUTDIR_PATH, exist_ok=True)
+        os.makedirs(TEMP_SAMPLE_OUTDIR_PATH, exist_ok=True)
+        os.makedirs(TEMP_SAMPLE_FETCHDIR_PATH, exist_ok=True)
+
+        SAMPLE_INPUTS_DICT[SAMPLE_ID] = {
             # INPUT INFO
-            "read_1": R1,
-            "read_2": R2,
+            "read_1_path": READ_1_PATH,
+            "read_2_path": READ_2_PATH,
+            "read_1_wsl_path": READ_1_WSL_PATH,
+            "read_2_wsl_path": READ_2_WSL_PATH,
             "platform": "illumina",
             "average_length": AVERAGE_LENGTH,
             "read_length_type": READ_TYPE,
             }
-        SAMPLE_OUTPUTS[ID] = {
+        SAMPLE_OUTPUTS_DICT[SAMPLE_ID] = {
+            "temp_read_1_path": os.path.join(TEMP_SAMPLE_FETCHDIR_PATH, os.path.basename(READ_1_WSL_PATH)),
+            "temp_read_2_path": os.path.join(TEMP_SAMPLE_FETCHDIR_PATH, os.path.basename(READ_2_WSL_PATH)),
+            # DIRECTORIES
+            "temp_sample_fetchdir_path": TEMP_SAMPLE_FETCHDIR_PATH,
+            "sample_outdir_path": SAMPLE_OUTDIR_PATH, 
+            "temp_sample_outdir_path": TEMP_SAMPLE_FETCHDIR_PATH,
             # MAPPING/ALIGNMENT INFO
-            "sample_outdir": SAMPLE_OUTDIR, 
-            "temp_sample_outdir": TEMP_SAMPLE_OUTDIR,
-            "sample_sam_file": f"{ID}.sam",
-            "sample_sorted_bam_file": f"{ID}.sorted.bam",
-            "sample_marked_bam_file": f"{ID}.marked.bam",
-            "sample_recal_bam_file": f"{ID}.recal.bam",
-            "sample_final_bam_file": f"{ID}.final.bam",
+            "sample_sam_file": f"{SAMPLE_ID}.sam",
+            "sample_sorted_bam_file": f"{SAMPLE_ID}.sorted.bam",
+            "sample_marked_bam_file": f"{SAMPLE_ID}.marked.bam",
+            "sample_recal_bam_file": f"{SAMPLE_ID}.recal.bam",
+            "sample_final_bam_file": f"{SAMPLE_ID}.final.bam",
             # VARIANT INFO
-            "sample_gvcf_file": f"{ID}.g.vcf",
-            "sample_vcf_file": f"{ID}.vcf",
-            "sample_final_vcf_file": f"{ID}.final.vcf",      
+            "sample_gvcf_file": f"{SAMPLE_ID}.g.vcf",
+            "sample_vcf_file": f"{SAMPLE_ID}.vcf",
+            "sample_final_vcf_file": f"{SAMPLE_ID}.final.vcf",      
         }
-        REPORT_OUTPUTS[ID] = {
+        REPORT_OUTPUTS_DICT[SAMPLE_ID] = {
             # REPORT INFO
-            "sample_xlsx_file" : f"{ID}.xlsx"
+            "sample_xlsx_file" : f"{SAMPLE_ID}.xlsx"
         }
 
-    COHORT_OUTPUTS = {
+    COHORT_OUTPUTS_DICT = {
         "cohort_gvcf_file": "cohort.g.vcf",
         "cohort_vcf_file": "cohort.vcf",
         "cohort_filtered_vcf_file": f"cohort.filtered.vcf",
@@ -111,18 +110,18 @@ def initialize_samples(SAMPLES, GENOME, KNOWN_SITES, OUTDIR):
 
     }
     REFERENCE_DICT = {
-        "reference_genome": GENOME,
-        "reference_known_sites": KNOWN_SITES
+        "reference_genome_path": GENOME_PATH,
+        "reference_known_sites_list": KNOWN_SITES_LIST
     }
 
     WORKFLOW_CONFIG = {
-        "sample_inputs": SAMPLE_INPUTS, 
-        "reference_dict": REFERENCE_DICT, 
-        "sample_outputs": SAMPLE_OUTPUTS, 
-        "cohort_outputs": COHORT_OUTPUTS, 
-        "report_outputs": REPORT_OUTPUTS,
-        "outdir": OUTDIR,
-        "temp_outdir": TEMP_OUTDIR
+        "sample_inputs_dict": SAMPLE_INPUTS_DICT, 
+        "reference_dict": REFERENCE_DICT,
+        "sample_outputs_dict": SAMPLE_OUTPUTS_DICT, 
+        "cohort_outputs_dict": COHORT_OUTPUTS_DICT, 
+        "report_outputs_dict": REPORT_OUTPUTS_DICT,
+        "outdir_path": OUTDIR_PATH,
+        "temp_outdir": TEMP_OUTDIR_PATH
         }
 
     return WORKFLOW_CONFIG
