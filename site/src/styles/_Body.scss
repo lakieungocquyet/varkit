@@ -1,0 +1,213 @@
+.Body {
+    flex: 1;
+    display: flex;
+    align-items: start;
+    overflow-y: auto;
+    flex-direction: row;
+    margin: 0;
+    padding: 0;
+}
+
+.Side_bar {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 50px;
+    flex-shrink: 0;
+    background-color: rgb(255, 255, 255);
+    border-right: 1px solid #E0E0E0;
+    .File_explorer{
+        margin-top: 10px;
+        height: 45px;
+        width: 45px;
+        border-radius: 50%;
+        border: none;
+        background-color: transparent;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        &:hover{
+            background-color: #ededed;
+        }
+        &.onselect{
+            width: 100%;
+            border: none;
+            border-radius: 0px;
+            border-right: 3px solid #1e453e;
+        }
+    }
+}
+
+.Explorer_panel{
+    display:flex;
+    align-items: start;
+    flex-direction: column;
+    height: 100%;
+    min-width: 250px;
+    max-width: 500px;
+    overflow: hidden;
+    border-right: 1px solid #E0E0E0;
+    transition: width 0.2s ease;
+    flex-shrink: 0;
+    position: relative;
+    .Explorer_panel_title {
+        display:flex;
+        width: 100%;
+        align-items: center;
+        flex-direction: row;
+        font-weight: 700;
+        color: #1e453e;
+        span {
+            margin-right: auto ;
+            margin-left: 20px;
+            min-width: 100px;
+        }
+        .Close_panel_button {
+            margin-top: 10px;
+            margin-right: 10px;
+            margin-left: auto;
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            border: none;
+            background-color: transparent;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            &:hover{
+                background-color: #ededed;
+            }
+        }
+    }
+    .Container_1{
+        flex: 1;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        overflow: hidden;
+        .File_tree_button{
+            display: flex;
+            flex-direction: row;
+            align-self: start;
+            padding-left: 10px;
+            button{
+                height: 45px;
+                width: 45px;
+                border-radius: 50%;
+                border: none;
+                background-color: transparent;
+                transition: all 0.2s ease;
+                cursor: pointer;
+                &:hover{
+                    background-color: #ededed;
+                }
+            }
+        }
+        .Divider {
+            position: relative;
+            height: 0.5px;
+            width: 100%;
+        }
+        .Divider::before {
+            content: "";
+            position: absolute;
+            left: 20px;
+            right: 20px;
+            top: 0;
+            height: 0.5px;
+            background: #E0E0E0;
+        }
+        .File_tree_container{
+            flex: 1;
+            overflow-y: auto;
+            padding-top: 10px;
+            border: none;
+            width: 100%;
+            box-sizing: border-box;
+            font-weight: 400;
+            font-size: 13px;
+        }
+    }
+    .Container_2{
+        width: 100%;
+        height: 100%;
+        gap: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        .GoogleDrive_mount_button{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            border: none;
+            border-radius: 20px;
+            height: 40px;
+            width: 200px;
+            box-shadow: 0px 1px 5px 2px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .Dropbox_mount_button{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: none;
+            border-radius: 20px;
+            height: 40px;
+            width: 200px;
+            box-shadow: 0px 1px 5px 2px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            cursor: pointer;
+            font-weight: 600;
+        }
+    }
+}
+
+.resize-handle {
+    position: absolute;   /* ép bám theo Explorer_panel */
+    top: 0;
+    right: 0;             /* luôn bám sát mép phải panel */
+    width: 3px;
+    height: 100%;
+    cursor: col-resize;
+    background-color: transparent;
+    z-index: 10;
+    transition: none;
+}
+
+.resize-handle:hover {
+    background-color: #1e453e;
+}
+
+.resize-handle:active {
+    background-color: #1e453e;
+}
+.Explorer_panel {
+    transition: none;
+}
+
+.Content{
+    overflow-y: none;
+    height: 100%;
+    flex: 1;         
+    min-width: 0;    
+    background-color: #ffffff;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-icon {
+    animation: spin 1s linear infinite !important;
+    transform-origin: center;
+}

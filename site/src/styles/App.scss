@@ -1,0 +1,26 @@
+@use 'Footer';
+@use 'Header';
+@use 'Dropdown';
+@use 'Body';
+@use 'Content';
+html, body {
+  font-family: Segoe UI, SegoeUI, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;      /* chiếm toàn màn hình */
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;   /* App cũng không tràn */
+}
+
+
