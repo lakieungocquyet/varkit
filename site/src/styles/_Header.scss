@@ -12,18 +12,19 @@
     flex-shrink: 0;
 }
 
-.Logo {
+.logo {
     display: flex;
     align-items: center;
     gap: 0px;
     padding-bottom: 3px;
-.Logo_1 {
+.logo_1 {
   margin-left: 0px;  
     color: #FF7F50;
     font-size: 25px;
     font-weight: 600;
 }
-.Logo_2 {
+.logo_2 {
+    font-weight: 600;
     font-size: 25px;
     color: #565656;
 }

@@ -50,7 +50,7 @@ function Header() {
     <div className="Header">
       <Logo></Logo>
       <nav className="nav_menu">
-        <Dropdown_1></Dropdown_1>
+        <Dropdown></Dropdown>
       </nav>
       <div className="Account_actions" ref={menuRef} style={{ position: 'relative' }}>
         {authUser ? (
