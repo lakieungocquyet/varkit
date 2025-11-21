@@ -52,7 +52,6 @@ function Header() {
       <nav className="nav_menu">
         <Dropdown_1></Dropdown_1>
       </nav>
-      
       <div className="Account_actions" ref={menuRef} style={{ position: 'relative' }}>
         {authUser ? (
           <>

@@ -35,8 +35,8 @@ function Logo () {
             </defs>
             </svg>
             {' '}
-            <span className="Logo_1">BIO</span>
-            <span className="Logo_2">solution</span>
+            <span className="Logo_1">Var</span>
+            <span className="Logo_2">kit</span>
         </div>
     )
 }
