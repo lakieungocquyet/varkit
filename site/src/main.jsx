@@ -6,7 +6,7 @@ import App from './views/App.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-      <BrowserRouter basename={"/varkit/site"}>
+      <BrowserRouter basename={"/varkit/"}>
         <App />
       </BrowserRouter>
   </React.StrictMode>,
