@@ -1,5 +1,5 @@
 
-   .Dropdown_1_container {
+   .dropdown_container {
     background-color: transparent;
     position: relative;
     display: flex;
@@ -12,7 +12,7 @@
 
   }
   
-  .Dropdown_1_button{
+  .dropdown_button{
     width: 100%;
     display: flex;
     align-items: center;
@@ -26,7 +26,7 @@
     flex-shrink: 0;
   }
   
-  .Dropdown_1_button_label {
+  .dropdown_button_label {
     font-size: 16px;
     font-weight: 500;
     text-align: left;
@@ -34,7 +34,7 @@
     color: #565656;
   }
   
-  .Dropdown_1_button_icon {
+  .dropdown_button_icon {
     padding-top: 5px;
     margin-left: 5px;
     transition: transform 0.2s ease; /* Mượt khi xoay icon */
@@ -44,10 +44,7 @@
       transform: rotate(180deg); /* Xoay icon khi mở */
     }
   }
-  
-
-  
-  .Dropdown_1_menu {
+  .dropdown_menu {
     display: flex;
     align-items: center;
     flex-direction: column;
