@@ -1,7 +1,7 @@
 function Footer () {
     return (
         <footer className="Footer">
-            <p>© 2025 Biosolutions. All rights reserved.</p>
+            <p>© 2025 Varkit. All rights reserved.</p>
         </footer>
     )
 }

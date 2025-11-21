@@ -1,39 +1,41 @@
 import {useState} from "react";
 
-function Dropdown () {
+function HeaderNavigation () {
     const [isHomeOpen, setIsHomeOpen] = useState(false);
     const [isInstallationOpen, setIsInstallationOpen] = useState(false);
     const [isAboutOpen, setIsAboutOpen] = useState(false);
     const [isDocumentationOpen, setIsDocumentationOpen] = useState(false);
 
     return(
-        <div className={`dropdown_container ${isOpen ? "open" : ""}`} >
-            <button className="dropdown_button">
-                <span className="dropdown_button_label" onClick={() => setIsHomeOpen(v => !v)}>
-                    Home
-                </span>
-            </button>
-            <button className="dropdown_button" onClick={() => setIsInstallationOpen(v => !v)}>
-                <span className="dropdown_button_label">
-                    Installation
-                </span>
-                <span className={`dropdown_button_icon ${isOpen ? "rotated" : ""}`}>
-                    <svg xmlns="http://www.w3.org/2000/svg" height="22px" viewBox="0 -960 960 960" width="22px" fill="#757575ff">
-                        <path d="m291-453-51-51 240-240 240 240-51 51-189-189-189 189Z"/>
-                    </svg>
-                </span>
-            </button>
-            <button className="dropdown_button">
-                <span className="dropdown_button_label" onClick={() => setIsDocumentationOpen(v => !v)}>
-                    Documentation
-                </span>
-            </button>
-            <button className="dropdown_button">
-                <span className="dropdown_button_label" onClick={() => setIsAboutOpen(v => !v)}>
-                    About
-                </span>
-            </button>
-
+        <div className={`header_navigation`} >
+            <div className={`dropdown_container`}>
+                <button className="dropdown_button">
+                    <span className="dropdown_button_label" onClick={() => setIsHomeOpen(v => !v)}>
+                        Home
+                    </span>
+                </button>
+            </div>
+            <div className={`dropdown_container ${isInstallationOpen ? "open" : ""}`}>
+                <button className="dropdown_button" onClick={() => setIsInstallationOpen(v => !v)}>
+                    <span className="dropdown_button_label">
+                        Installation
+                    </span>
+                </button>
+            </div>
+            <div className={`dropdown_container`}>
+                <button className="dropdown_button">
+                    <span className="dropdown_button_label" onClick={() => setIsDocumentationOpen(v => !v)}>
+                        Documentation
+                    </span>
+                </button>
+            </div>
+            <div className={`dropdown_container`}>
+                <button className="dropdown_button">
+                    <span className="dropdown_button_label" onClick={() => setIsAboutOpen(v => !v)}>
+                        About
+                    </span>
+                </button>
+            </div>
             {setIsInstallationOpen && (
                 <div className="dropdown_menu">
                     <span className="Service_field"> DATA ANALYSIS</span>
@@ -48,4 +50,4 @@ function Dropdown () {
         </div>
     )
 }
-export default Dropdown_1;
+export default HeaderNavigation;

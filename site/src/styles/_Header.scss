@@ -11,21 +11,19 @@
     z-index: 100;
     flex-shrink: 0;
 }
-
 .logo {
+    margin-left: 20px;
     display: flex;
     align-items: center;
-    gap: 0px;
     padding-bottom: 3px;
 .logo_1 {
-  margin-left: 0px;  
     color: #FF7F50;
-    font-size: 25px;
-    font-weight: 600;
+    font-size: 30px;
+    font-weight: 700;
 }
 .logo_2 {
-    font-weight: 600;
-    font-size: 25px;
+    font-weight: 700;
+    font-size: 30px;
     color: #565656;
 }
 }
@@ -38,89 +36,16 @@
     height: 100%; // Chiếm toàn bộ chiều cao của header
 }
 
-.Account_actions {
-display: flex;
-align-items: center;
-gap: 10px;
-margin-left:auto;
-margin-right: 50px;
-
-.Log_in {
-  font-size: 16px;
-  font-weight: 700;
-  background-color: #00b94d;
-  border: none;
-  color: rgb(255, 255, 255);
-  border-radius: 7px;
-  height: 40px;
-  width: 75px;
-  transition: all 0.2s ease;
-  text-decoration: none; // Bỏ gạch chân
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  
-  &:hover {
-    border-radius: 20px;
-    background-color: #115022;
-    text-decoration: none; // Bỏ gạch chân khi hover
-  }
-  
-  &:visited {
-    text-decoration: none; // Bỏ gạch chân cho link đã visit
-    color: white; // Giữ màu trắng cho link đã visit
-  }
-}
-
-.Sign_up{
-  padding: none;
-  font-size: 14px;
-  background-color: white;
-  border-radius: 7px;
-  height: 35px;
-  width: 70px;
-  border: 2px solid rgb(172, 172, 172);
-  transition: all 0.2s ease;
-  cursor: pointer;
-  &:hover {
-    border-radius: 15px;
-    background-color: #c2c2c2;
-  }
-  .Sign_up_link {
-    height: 35px;
-    width: 70px;
-    text-decoration: none;
-    &:hover {
-      text-decoration: none; // Bỏ gạch chân khi hover
-    }
-  
-    &:visited {
-      text-decoration: none; // Bỏ gạch chân cho link đã visit
-      color: rgb(0, 0, 0); // Giữ màu trắng cho link đã visit
-    }
-  }
-}
-.User_button {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center; 
-  justify-content: center; 
-  border: none; 
-  background: transparent;
-  cursor: pointer; 
-
-  .User_avatar{
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    border: none;
-    transition: all 0.1s ease;
-    &:hover{
-      border: 1px solid rgb(55, 65, 81);
-    }
-    }
-  }
+.github_repository_button{
+	margin-left: auto;
+	margin-right: 20px;
+	height: 60px;
+  	width: 60px;
+	border-radius: 50%;
+	border: none;
+	background-color: transparent;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
 }

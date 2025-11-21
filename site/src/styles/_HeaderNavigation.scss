@@ -1,15 +1,23 @@
-
+.header_navigation {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    height: 100%;
+    padding-left: 20px;
+    box-sizing: border-box;
+  }         
    .dropdown_container {
     background-color: transparent;
+    align-items: center;
+    justify-content: center;
     position: relative;
     display: flex;
-    width: 100px;
-    height: 100%;
-    
+    height: 100%;   
+    box-sizing: border-box;
+    border-bottom: 3px solid transparent;
     &.open {
-      border-bottom: 3px solid #ffffff;
+      border-bottom: 3px solid #00aeff;
     }
-
   }
   
   .dropdown_button{
@@ -27,18 +35,15 @@
   }
   
   .dropdown_button_label {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 500;
-    text-align: left;
-    white-space: nowrap; /* Không xuống dòng */
+    white-space: nowrap;
     color: #565656;
   }
   
   .dropdown_button_icon {
-    padding-top: 5px;
-    margin-left: 5px;
     transition: transform 0.2s ease; /* Mượt khi xoay icon */
-    font-size: 12px;
+    font-size: 15px;
     color: rgb(73, 73, 73);
     &.rotated {
       transform: rotate(180deg); /* Xoay icon khi mở */
