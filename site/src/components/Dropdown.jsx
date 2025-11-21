@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-function Dropdown_1 () {
+function Dropdown () {
     const [isHomeOpen, setIsHomeOpen] = useState(false);
     const [isInstallationOpen, setIsInstallationOpen] = useState(false);
     const [isAboutOpen, setIsAboutOpen] = useState(false);
