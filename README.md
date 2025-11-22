@@ -1,5 +1,5 @@
 # Overview
-Software for analyzing sequencing data
+Pipeline for calling variants from whole exome sequencing (WES) raw data
 # Requirements
 
 # Install
