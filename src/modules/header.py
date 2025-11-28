@@ -25,8 +25,11 @@ from modules.include.post_variant_calling.genotype_variants_gatk import genotype
 from modules.include.post_variant_calling.filter_variants_gatk import hard_filter_variants_gatk
 from modules.include.post_variant_calling.normalize_variants_bcftools import normalize_variants_bcftools
 from modules.include.annotaion.annotate_variants_snpeff_and_snpsift import *
+## Downstream processing
 from modules.include.downstream_processing.select_variants_gatk import select_variants_by_sample_gatk
-from modules.include.reporting.generate_XLSX_report import generate_XLSX_report
+from modules.include.downstream_processing.export_output_data import export_output_data
+from modules.include.downstream_processing.reporting.generate_XLSX_report import generate_XLSX_report
+
 # Flows
 from modules.flow.upstream_processing_flow  import upstream_processing_flow
 from modules.flow.mapping_and_alignment_flow import mapping_and_alignment_flow
@@ -35,7 +38,6 @@ from modules.flow.variant_calling_flow import variant_calling_flow
 from modules.flow.post_variant_calling_flow import post_variant_calling_flow
 from modules.flow.variant_annotation_flow import variant_annotation_flow
 from modules.flow.downstream_processing_flow import downstream_processing_flow
-from modules.flow.reporting_flow import reporting_flow
 
 
 
