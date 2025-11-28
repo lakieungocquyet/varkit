@@ -2,14 +2,15 @@ from modules.header import *
 import shutil
 
 def fetch_input_data(workflow_config):
-    SAMPLE_INPUTS_DICT = workflow_config["sample_inputs_dict"]    
-    log.info("Importing input data into workflow...")
-    for sample_id, sample_info in SAMPLE_INPUTS_DICT.items():
-        TEMP_SAMPLE_FETCHDIR = workflow_config["sample_outputs_dict"][sample_id]["temp_sample_fetchdir"]
-        READ_1_WSL_PATH = SAMPLE_INPUTS_DICT[sample_id]["read_1_wsl_path"]
-        READ_2_WSL_PATH = SAMPLE_INPUTS_DICT[sample_id]["read_2_wsl_path"]
-        log.info(f"Importing data for sample: {sample_id}")
-        shutil.copy(READ_1_WSL_PATH, TEMP_SAMPLE_FETCHDIR)
-        shutil.copy(READ_2_WSL_PATH, TEMP_SAMPLE_FETCHDIR)
-    log.info("Input data import completed.")
+    sample_inputs_dict = workflow_config["SAMPLE_INPUTS_DICT"]    
+    log.info("Fetch input data into workflow...")
+    for sample_id, sample_info in sample_inputs_dict.items():
+        temp_sample_fetchdir = workflow_config["SAMPLE_OUTPUTS_DICT"][sample_id]["TEMP_SAMPLE_FETCHDIR"]
+        read_1_wsl_path = sample_inputs_dict[sample_id]["READ_1_WSL_PATH"]
+        read_2_wsl_path = sample_inputs_dict[sample_id]["READ_2_WSL_PATH"]
+        
+        log.info(f"Fetching data for sample: {sample_id}")
+        shutil.copy(read_1_wsl_path, temp_sample_fetchdir)
+        shutil.copy(read_2_wsl_path, temp_sample_fetchdir)
+    log.info("Input data fetch complete.")
 
