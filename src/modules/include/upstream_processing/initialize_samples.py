@@ -26,8 +26,8 @@ def check_average_read_length(fastq):
     average_length = subprocess.run(command, shell=True, capture_output=True, text=True)
     return float(average_length.stdout.strip() or 0)
 
-def initialize_from_yaml(input_yaml):
-    with open(f"{input_yaml}", "r") as f:
+def initialize_from_yaml(input_yaml_path):
+    with open(f"{input_yaml_path}", "r") as f:
         input = yaml.safe_load(f)
         sample_list = input["input_paths"]["sample"]
         genome_path = input["input_paths"]["reference"]["genome"]
@@ -37,7 +37,7 @@ def initialize_from_yaml(input_yaml):
 
 def initialize_samples(sample_list, genome_path, known_sites_list, outdir_path):
     temp_outdir_path = create_temp_outdir(
-        root = "/otp/varkit/jobspace"
+        root = "/opt/varkit/jobspace"
     )
     for sample in sample_list:
         sample_id = sample["id"]
