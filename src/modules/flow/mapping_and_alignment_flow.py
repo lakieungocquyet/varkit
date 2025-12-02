@@ -5,6 +5,8 @@ def mapping_and_alignment_flow(workflow_config):
     temp_outdir_path = workflow_config["TEMP_OUTDIR_PATH"]
     genome_path = workflow_config["REFERENCE_DICT"]["genome_path"]
     sample_inputs_dict = workflow_config["SAMPLE_INPUTS_DICT"]
+    log.info(f"Reference genome: {genome_path}")
+    log.info(f"Total samples: {len(sample_inputs_dict)}")
 
     for sample_id, info in sample_inputs_dict.items():
 
@@ -24,7 +26,7 @@ def mapping_and_alignment_flow(workflow_config):
             )
 
             if not bwa_ready:
-                log.info(f"BWA index files missing: {missing_files}")
+                log.warning(f"BWA index files missing, creating BWA index...")
                 index_reference_genome_bwa(
                     reference_genome = genome_path
                 )
@@ -46,7 +48,7 @@ def mapping_and_alignment_flow(workflow_config):
                 reference_genome = genome_path
             )
             if not minimap2_ready:
-                log.info(f"Minimap2 index file missing, creating Minimap2 index.")
+                log.warning(f"Minimap2 index file missing, creating Minimap2 index...")
                 index_reference_genome_minimap2(
                     reference_genome = genome_path
                 )
