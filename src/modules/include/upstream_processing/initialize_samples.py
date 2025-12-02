@@ -1,10 +1,6 @@
-import yaml
 import os
 import subprocess
-import pathlib
-from datetime import datetime
 from modules.utils.translate_path import translate_path
-import uuid
 
 SAMPLE_INPUTS_DICT = {}
 REFERENCE_DICT = {}
@@ -14,31 +10,13 @@ REPORT_OUTPUTS_DICT = {}
 
 WORKFLOW_CONFIG = {}
 
-def create_temp_outdir(root):
-    timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
-    unique_id = uuid.uuid4().hex[:8]
-    path = pathlib.Path(root) / f"{timestamp}_{unique_id}"
-    path.mkdir(parents=True, exist_ok=True)
-    return path
-
 def check_average_read_length(fastq):
     command = f'seqtk seq -A "{fastq}" | awk \'{{if(NR%2==0){{sum+=length($0);n++}}}} END{{if(n>0) print sum/n; else print 0}}\''
     average_length = subprocess.run(command, shell=True, capture_output=True, text=True)
     return float(average_length.stdout.strip() or 0)
 
-def initialize_from_yaml(input_yaml_path):
-    with open(f"{input_yaml_path}", "r") as f:
-        input = yaml.safe_load(f)
-        sample_list = input["input_paths"]["sample"]
-        genome_path = input["input_paths"]["reference"]["genome"]
-        known_sites_list = input["input_paths"]["reference"]["known_site"]
-        outdir_path = input["input_paths"]["output"]["directory"]
-    return sample_list, genome_path, known_sites_list, outdir_path
-
-def initialize_samples(sample_list, genome_path, known_sites_list, outdir_path):
-    temp_outdir_path = create_temp_outdir(
-        root = "/opt/varkit/jobspace"
-    )
+def initialize_samples(sample_list, genome_path, known_sites_list, temp_outdir_path, outdir_path):
+    temp_outdir_path = temp_outdir_path
     for sample in sample_list:
         sample_id = sample["id"]
         read_1_path = sample["read1"]

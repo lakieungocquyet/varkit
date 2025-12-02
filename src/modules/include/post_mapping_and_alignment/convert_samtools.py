@@ -1,7 +1,7 @@
 import subprocess
 
 
-def convert_samtools(input_file, sample_outdir, outdir, output_file):
+def convert_samtools(input_file, threads, sample_outdir, outdir, output_file):
     input_file_path = f"{sample_outdir}/{input_file}"
     output_file_path = f"{sample_outdir}/{output_file}"
     runtime_log_path = f"{outdir}/runtime.log"
@@ -19,7 +19,7 @@ def convert_samtools(input_file, sample_outdir, outdir, output_file):
                 "-o", runtime_log_path,
                 "-f", "Elapsed: %E\nMaximum resident set size (kB): %M\nExit status: %x\n",       
                 "samtools", "view",
-                "-@", "8",
+                "-@", threads,
                 "-Sb",
                 input_file_path
             ], 

@@ -6,4 +6,3 @@ pixi.lock
 test/*
 example/*
 .vscode/*
-site/node_modules/*

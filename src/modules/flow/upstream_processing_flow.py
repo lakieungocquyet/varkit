@@ -1,16 +1,16 @@
+import yaml
 from modules.header import *
 
-def upstream_processing_flow(input_yaml):
+def upstream_processing_flow(input_yaml_path, system_config):
 
     KNOWN_SITES_STRING = ""
     GVCF_FILE_STRING = ""
-    log.info("Loading YAML configuration...")
-    sample_list, genome_path, known_sites_list, outdir_path = initialize_from_yaml(input_yaml)
-    log.info(f"Total samples: {len(sample_list)}")
-    log.info(f"Output directory: {outdir_path}")
+    sample_list, genome_path, known_sites_list, outdir_path = initialize_from_yaml(input_yaml_path)
     setup_logging(
         outdir = outdir_path
     )
+    log.info(f"Total samples: {len(sample_list)}")
+    log.info(f"Output directory: {outdir_path}")
     log.info("Initializing sample structure...")
     WORKFLOW_CONFIG = initialize_samples(
         sample_list = sample_list, 

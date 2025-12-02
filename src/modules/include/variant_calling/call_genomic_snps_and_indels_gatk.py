@@ -1,6 +1,6 @@
 import subprocess
 
-def call_genomic_snps_and_indels_gatk(input_file, reference_genome, sample_outdir, outdir, output_file):
+def call_genomic_snps_and_indels_gatk(input_file, threads, reference_genome, sample_outdir, outdir, output_file):
     input_file_path = f"{sample_outdir}/{input_file}"
     output_file_path = f"{sample_outdir}/{output_file}"
     runtime_log_path = f"{outdir}/runtime.log"
@@ -18,7 +18,7 @@ def call_genomic_snps_and_indels_gatk(input_file, reference_genome, sample_outdi
                 "-I", input_file_path,
                 "-R", reference_genome,
                 "-O", output_file_path,
-                "--native-pair-hmm-threads", "8",
+                "--native-pair-hmm-threads", threads,
                 "-ERC", "GVCF",
                 "-L", "/home/lknq/hg19/S07604624_Regions.bed",
                 "-ip", "100",

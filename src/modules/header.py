@@ -9,6 +9,8 @@ from modules.utils.translate_path import translate_path
 from modules.include.upstream_processing.initialize_samples import *
 from modules.include.upstream_processing.index_reference_file import *
 from modules.include.upstream_processing.fetch_input_data import fetch_input_data
+from modules.include.upstream_processing.create_temp_outdir import create_temp_outdir
+from modules.include.upstream_processing.initialize_from_yaml import initialize_from_yaml
 ## Mapping and Alignment
 from modules.include.mapping_and_alignment.map_and_align_bwa_mem import map_and_align_bwa_mem
 from modules.include.mapping_and_alignment.map_and_align_minimap2 import map_and_align_minimap2

@@ -1,6 +1,6 @@
 from modules.header import *
 
-def default_pipeline(workflow_config, gvcf_file_string, known_sites_string):
+def default_pipeline(workflow_config, system_config, gvcf_file_string, known_sites_string):
     # [STAGE 1]: MAPPING AND ALIGNMENT
     mapping_and_alignment_flow(
         workflow_config = workflow_config
