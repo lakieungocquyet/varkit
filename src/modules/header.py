@@ -1,6 +1,6 @@
 # Utils
 from modules.utils.setup_logging import setup_logging
-from GitHub.varkit.src.modules.utils.sanitize import sanitize
+from modules.utils.sanitize import sanitize
 from modules.utils.log import log
 from modules.utils.check_index_file import *
 from modules.utils.translate_path import translate_path
@@ -27,9 +27,8 @@ from modules.include.post_variant_calling.normalize_variants_bcftools import nor
 from modules.include.annotaion.annotate_variants_snpeff_and_snpsift import *
 ## Downstream processing
 from modules.include.downstream_processing.select_variants_gatk import select_variants_by_sample_gatk
-from modules.include.downstream_processing.export_output_data import export_output_data
-from modules.include.downstream_processing.reporting.generate_XLSX_report import generate_XLSX_report
-
+from modules.include.downstream_processing.export.export_output_data import export_output_data
+from modules.include.downstream_processing.report.generate_XLSX_report import generate_XLSX_report
 # Flows
 from modules.flow.upstream_processing_flow  import upstream_processing_flow
 from modules.flow.mapping_and_alignment_flow import mapping_and_alignment_flow
