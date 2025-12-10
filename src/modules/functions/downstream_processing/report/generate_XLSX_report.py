@@ -13,12 +13,12 @@ GENERAL_INFO =  ["CHROM"             ,"POS"            ,"REF"        ,"ALT"     
                  "ALT_AA"            ,"cDNA_pos"       ,"cDNA_length","CDS_pos"     ,"CDS_length",
                  "AA_pos"            ,"AA_length"      ,"Distance"
                 ]
-DB_SNP_INFO =   ["dbSNP138_ID","dbSNP156_ID"]
-ONE_THOUSAND_GENOMES_INFO = [ "p3_1000G_AF","p3_1000G_AFR_AF","p3_1000G_AMR_AF","p3_1000G_EAS_AF","p3_1000G_EUR_AF","p3_1000G_SAS_AF"]
-EVS_INFO =     ["ESP6500_MAF_EA","ESP6500_MAF_AA","ESP6500_MAF_ALL"]
+DBSNP_INFO =   ["dbSNP138_ID","dbSNP156_ID"]
+P3_1000G_INFO = [ "p3_1000G_AF","p3_1000G_AFR_AF","p3_1000G_AMR_AF","p3_1000G_EAS_AF","p3_1000G_EUR_AF","p3_1000G_SAS_AF"]
+ESP6500_INFO =     ["ESP6500_MAF_EA","ESP6500_MAF_AA","ESP6500_MAF_ALL"]
 CLINVAR_INFO = ["CLINVAR_CLNSIG","CLINVAR_CLNDISDB","CLINVAR_CLNDN","CLINVAR_CLNREVSTAT"]
 
-DB_NSFP_INFO =  ["ACMG_SF_v3.2","REF_AA_dbnsfp","ALT_AA_dbnsfp","hg19_chr","hg19_pos(1-based)","cds_strand","refcodon","codonpos","codon_degeneracy",
+DBNSFP_INFO =  ["ACMG_SF_v3.2","REF_AA_dbnsfp","ALT_AA_dbnsfp","hg19_chr","hg19_pos(1-based)","cds_strand","refcodon","codonpos","codon_degeneracy",
                 "SIFT_score","SIFT_converted_rankscore","SIFT_pred","LRT_score","LRT_converted_rankscore","LRT_pred","LRT_Omega",
                 "MutationTaster_score","MutationTaster_converted_rankscore","MutationTaster_pred","MutationTaster_model","MutationTaster_AAE",
                 "MutationAssessor_score","MutationAssessor_rankscore","MutationAssessor_pred","FATHMM_score","FATHMM_converted_rankscore",
@@ -52,7 +52,7 @@ OTHERS =    ["Gene_old_names","Gene_full_name","Pathway(Uniprot)","Pathway(BioCa
 def generate_XLSX_report(input_file, sample_outdir, output_file):
     VCF_FILE = VCF(f"{sample_outdir}/{input_file}")
     data = []
-    HEADER = GENERAL_INFO + DB_SNP_INFO + ONE_THOUSAND_GENOMES_INFO + EVS_INFO + CLINVAR_INFO + DB_NSFP_INFO
+    HEADER = GENERAL_INFO + DBSNP_INFO + P3_1000G_INFO + ESP6500_INFO + CLINVAR_INFO + DBNSFP_INFO
 
     TOTAL_RECORD = sum(1 for _ in VCF(f"{sample_outdir}/{input_file}"))
     log.info(f"Total variant: {TOTAL_RECORD:,}")

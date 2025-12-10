@@ -2,4 +2,5 @@
 root_directory = "~/varkit/reference"
 [resources]
 threads = 4
-memory_gb = 8
+min_memory_gb = 8
+max_memory_gb = 16

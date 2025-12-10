@@ -8,3 +8,7 @@ mkdir -p /mnt/c/temp/
 docker export varkit > /mnt/c/temp/varkit.tar
 ## dockerContainerID=$(docker container ls -a | grep -i varkit | awk '{print $1}')
 ## docker export $dockerContainerID > /mnt/c/temp/varkit.tar
+
+
+# docker run -it --name projectb projectb
+# docker export projectb > /mnt/c/temp/projectb.tar

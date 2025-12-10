@@ -6,3 +6,6 @@ gatk LiftoverVcf \
   -CHAIN /home/lknq/hg38ToHg19.over.chain \
   -REJECT /home/lknq/anotation/rejected_variants.vcf \
   -R /home/lknq/hg19/hg19.p13.plusMT.no_alt_analysis_set.fa
+
+# EVS
+
