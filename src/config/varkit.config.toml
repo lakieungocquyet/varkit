@@ -1,5 +1,5 @@
-[reference]
-root_directory = "~/varkit/reference"
+[data]
+root_directory = "~/varkit/data"
 [resources]
 threads = 4
 min_memory_gb = 8

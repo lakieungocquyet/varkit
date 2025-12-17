@@ -1,12 +1,12 @@
 import logging
 import sys
 
-def setup_logging(outdir):
-    log = logging.getLogger("pipeline")
-    log.setLevel(logging.INFO)
+def setup_pipeline_logging(outdir):
+    logger = logging.getLogger("pipeline")
+    logger.setLevel(logging.INFO)
     
-    if log.hasHandlers():
-        log.handlers.clear()
+    if logger.hasHandlers():
+        logger.handlers.clear()
 
     formatter = logging.Formatter(
         "%(asctime)s - %(levelname)s - %(message)s",
@@ -18,8 +18,25 @@ def setup_logging(outdir):
     stream_handler = logging.StreamHandler(sys.stdout)
     stream_handler.setFormatter(formatter)
 
-    log.addHandler(file_handler)
-    log.addHandler(stream_handler)
-    return log
+    logger.addHandler(file_handler)
+    logger.addHandler(stream_handler)
+    return logger
+
+def setup_system_logging(outdir):
+    logger = logging.getLogger("system")
+    logger.setLevel(logging.INFO)
+    
+    if logger.hasHandlers():
+        logger.handlers.clear()
+
+    formatter = logging.Formatter(
+        "%(asctime)s - %(levelname)s - %(message)s",
+        "%Y-%m-%d %H:%M:%S"
+    )
+    stream_handler = logging.StreamHandler(sys.stdout)
+    stream_handler.setFormatter(formatter)
+
+    logger.addHandler(stream_handler)
+    return logger
 
 

@@ -1,7 +1,7 @@
 # Utils
 from modules.utils.setup_logging import setup_logging
 from modules.utils.sanitize import sanitize
-from modules.utils.log import log
+from GitHub.varkit.src.modules.utils.logger import log
 from modules.utils.check_index_file import *
 from modules.utils.translate_path import translate_path
 # Modules
@@ -10,7 +10,7 @@ from modules.functions.upstream_processing.initialize_samples import *
 from modules.functions.upstream_processing.index_reference_file import *
 from modules.functions.upstream_processing.fetch_input_data import fetch_input_data
 from modules.functions.upstream_processing.create_temp_outdir import create_temp_outdir
-from modules.functions.upstream_processing.initialize_from_yaml import initialize_from_yaml
+from modules.functions.upstream_processing.load_paths_from_yaml import load_paths_from_yaml
 ## Mapping and Alignment
 from modules.functions.mapping_and_alignment.map_and_align_bwa_mem import map_and_align_bwa_mem
 from modules.functions.mapping_and_alignment.map_and_align_minimap2 import map_and_align_minimap2

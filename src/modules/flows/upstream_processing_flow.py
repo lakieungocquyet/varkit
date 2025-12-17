@@ -5,7 +5,7 @@ def upstream_processing_flow(input_yaml_path, system_config):
 
     KNOWN_SITES_STRING = ""
     GVCF_FILE_STRING = ""
-    sample_list, genome_path, known_sites_list, outdir_path = initialize_from_yaml(input_yaml_path)
+    sample_list, genome_path, known_sites_list, outdir_path = load_paths_from_yaml(input_yaml_path)
     setup_logging(
         outdir = outdir_path
     )

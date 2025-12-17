@@ -1,6 +1,6 @@
 import yaml
 
-def initialize_from_yaml(input_yaml_path):
+def load_paths_from_yaml(input_yaml_path):
     with open(f"{input_yaml_path}", "r") as f:
         input = yaml.safe_load(f)
         sample_list = input["input_paths"]["sample"]
